@@ -1,0 +1,48 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+}
+
+body {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(7, 1fr);
+  background-color: #03256c;
+}
+
+.intro {
+  grid-row: 3;
+  grid-column: 2/8;
+  text-align: center;
+}
+
+.intro h1 {
+  font-size: 19px;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  color: white;
+  margin-bottom: 1em;
+}
+
+.red-text {
+  color: crimson;
+}
+
+button {
+  font-family: "Poppins", sans-serif;
+  font-size: 19px;
+  border-style: none;
+  background-color: #15e6cd;
+  color: white;
+  padding: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  /* margin-right: 3rem; */
+  border-radius: 0.8rem;
+}
