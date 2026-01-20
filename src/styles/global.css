@@ -241,3 +241,9 @@ section {
   padding: 1rem;
   max-width: 80ch;
 }
+
+@media (min-width: 636px) {
+  section {
+    margin: 0 auto;
+  }
+}
