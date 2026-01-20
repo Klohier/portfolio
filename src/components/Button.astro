@@ -1,0 +1,21 @@
+---
+const { href, name } = Astro.props;
+---
+
+<a href={href}>{name}</a>
+
+<style>
+  a {
+    background-color: #4c1d95;
+    color: white;
+    border: none;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+
+  a:hover,
+  a:focus {
+    background-color: #ff9776;
+  }
+</style>
