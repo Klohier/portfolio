@@ -1,71 +1,94 @@
 ---
-import "../styles/global.css";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
 import Button from "../components/Button.astro";
 import Card from "../components/Card.astro";
+const pageTitle = "Home Page";
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
-  </head>
-  <body>
-    <Header />
+<!-- <script>
+  import { gsap } from "gsap";
 
-    <section>
-      <h1>Hi I'm Keiji Lohier!</h1>
+  import { InertiaPlugin } from "gsap/InertiaPlugin";
+  import { TextPlugin } from "gsap/TextPlugin";
 
+  gsap.registerPlugin(InertiaPlugin, TextPlugin);
+  const hero = document.getElementById("hero-section");
+  gsap.to(hero, {
+    duration: 2,
+    text: "Some really cool intro text!, Enough to draw attention. I need to make it longer. There we go! This is good. ",
+    ease: "none",
+  });
+</script> -->
+<style>
+  .hero-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    color: var(--text-color);
+    margin-bottom: 2rem;
+  }
+</style>
+
+<BaseLayout pageTitle={pageTitle}>
+  <section class="hero-section">
+    <h1>Hi I'm Keiji Lohier!</h1>
+
+    <p>
+      I’m a full-stack web developer who loves building things that work well
+      and feel good to use. I’ve spent time on both sides of the stack creating
+      solid, secure back-end systems and crafting clean, intuitive front-end
+      experiences.
+    </p>
+
+    <div class="button-group">
+      <Button href="/about/" name="Projects" />
+      <Button href="/blog/" name="Contact Me" />
+    </div>
+  </section>
+
+  <section>
+    <Card>
+      <h2>Tech Stack</h2>
+
+      <h3>Languages</h3>
+      <ul>
+        <li>JavaScript (ES6+)</li>
+        <li>TypeScript</li>
+        <li>HTML5 & CSS3</li>
+        <li>Python</li>
+        <li>Go</li>
+        <li>MySQL</li>
+        <li>PostgreSQL</li>
+      </ul>
+
+      <h3>Frameworks & Libraries</h3>
+      <ul>
+        <li>React</li>
+        <li>Node.js & Express</li>
+        <li>Astro</li>
+        <li>Tailwind CSS</li>
+      </ul>
+
+      <hr />
+      <h3>Tools & Platforms</h3>
+      <ul>
+        <li>Git & GitHub</li>
+        <li>Docker</li>
+        <li>VS Code</li>
+        <li>Postman</li>
+      </ul>
+    </Card>
+  </section>
+
+  <section>
+    <Card>
+      <h2>Get In Touch</h2>
       <p>
-        I’m a full-stack web developer who loves building things that work well
-        and feel good to use. I’ve spent time on both sides of the stack
-        creating solid, secure back-end systems and crafting clean, intuitive
-        front-end experiences.
+        I'm always open to discussing new projects, creative ideas, or
+        opportunities to be part of your visions. Feel free to reach out to me
+        through my social media channels or send me an email directly.
       </p>
-
-      <div class="button-group">
-        <Button href="/about/" name="Projects" />
-        <Button href="/blog/" name="Contact Me" />
-      </div>
-    </section>
-
-    <section>
-      <Card>
-        <h2>Tech Stack</h2>
-
-        <h3>Languages</h3>
-        <ul>
-          <li>JavaScript (ES6+)</li>
-          <li>TypeScript</li>
-          <li>HTML5 & CSS3</li>
-          <li>Python</li>
-          <li>Go</li>
-          <li>MySQL</li>
-          <li>PostgreSQL</li>
-        </ul>
-
-        <h3>Frameworks & Libraries</h3>
-        <ul>
-          <li>React</li>
-          <li>Node.js & Express</li>
-          <li>Astro</li>
-          <li>Tailwind CSS</li>
-        </ul>
-
-        <hr />
-        <h3>Tools & Platforms</h3>
-        <ul>
-          <li>Git & GitHub</li>
-          <li>Docker</li>
-          <li>VS Code</li>
-          <li>Postman</li>
-        </ul>
-      </Card>
-    </section>
-    <Footer />
-  </body>
-</html>
+      <Button href="/contact/" name="Contact Me" />
+    </Card>
+  </section>
+</BaseLayout>
