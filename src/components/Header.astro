@@ -7,14 +7,14 @@ import Menu from "./Menu.astro";
   header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    max-width: fit-content;
+    /* align-items: center; */
     background-color: rgba(99, 99, 250, 0.692);
     backdrop-filter: blur(10px);
     padding: 0.3rem;
-    position: sticky;
-    top: 0.3rem;
     border-radius: 0.5rem;
-    margin: 0.3rem;
+    margin: auto;
+    margin-top: 0.5rem;
   }
 
   .logo {
@@ -32,7 +32,7 @@ import Menu from "./Menu.astro";
       fill="white"></polygon>
   </svg>
   <nav>
-    <Menu />
+    <!-- <Menu /> -->
     <Navigation />
   </nav>
 </header>

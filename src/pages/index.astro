@@ -1,5 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
+import heroImage from "../assets/images/_DSC0082.jpg";
+
 import Button from "../components/Button.astro";
 import Card from "../components/Card.astro";
 const pageTitle = "Home Page";
@@ -23,21 +26,64 @@ const pageTitle = "Home Page";
   .hero-section {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
     color: var(--text-color);
-    margin-bottom: 2rem;
+    /* margin-bottom: 2rem; */
+  }
+
+  .tags {
+    margin-bottom: 1rem;
+  }
+  .tag {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: var(--accent-color);
+    padding: 0.25rem 0.5rem;
+    margin-right: 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
   }
 </style>
 
 <BaseLayout pageTitle={pageTitle}>
   <section class="hero-section">
     <h1>Hi I'm Keiji Lohier!</h1>
+    <Image
+      src={heroImage}
+      alt="A bird sitting on a nest of eggs."
+      layout="constrained"
+      width={800}
+      height={600}
+    />
 
     <p>
-      I’m a full-stack web developer who loves building things that work well
-      and feel good to use. I’ve spent time on both sides of the stack creating
-      solid, secure back-end systems and crafting clean, intuitive front-end
-      experiences.
+      Hey There! I'm Keiji. I'm a passionate introvert who loves building things
+      with code and learning about emerging technologies.
+    </p>
+
+    <p>
+      When not messing around with tech you can find me taking photos, playing
+      around with my DJ decks and going down the rabbit hole about ancient
+      civilizations.
+    </p>
+
+    <p>
+      My first experience with programming was when I was around the 5th grade
+      and wanted to make my own game. I had heard about C++ and decided to try
+      and learn that. Ended up learning BASIC and creating a text-based
+      adventure game. Fell in love with programming since.
+    </p>
+
+    <p>
+      Since then, I've been honing my skills and keeping up with the tech as it
+      emerges. I recently graduated from Rochester Institute of Technology and
+      I'm seeking a full-time role where I can help a company achieve their
+      goals.
+    </p>
+
+    <p>
+      Currently I have been messing around with self-hosting and have a homelab
+      setup. I host game servers for friends and can stream my own music library
+      over the internet.
     </p>
 
     <div class="button-group">
@@ -48,7 +94,7 @@ const pageTitle = "Home Page";
 
   <section>
     <Card>
-      <h2>Tech Stack</h2>
+      <h2>My Skills</h2>
 
       <h3>Languages</h3>
       <ul>
@@ -59,6 +105,7 @@ const pageTitle = "Home Page";
         <li>Go</li>
         <li>MySQL</li>
         <li>PostgreSQL</li>
+        <li>Java</li>
       </ul>
 
       <h3>Frameworks & Libraries</h3>
@@ -66,7 +113,7 @@ const pageTitle = "Home Page";
         <li>React</li>
         <li>Node.js & Express</li>
         <li>Astro</li>
-        <li>Tailwind CSS</li>
+        <li>Echo (Go)</li>
       </ul>
 
       <hr />
@@ -76,7 +123,55 @@ const pageTitle = "Home Page";
         <li>Docker</li>
         <li>VS Code</li>
         <li>Postman</li>
+        <li>Webflow</li>
+        <li>Proxmox</li>
+        <li>Linux</li>
+        <li>Figma</li>
+        <li>Adobe Creative Cloud</li>
       </ul>
+    </Card>
+  </section>
+  <section>
+    <h1>Projects</h1>
+    <Card>
+      <h2>DnBoxes</h2>
+      <div class="tags">
+        <span class="tag">React</span>
+        <span class="tag">TypeScript</span>
+        <span class="tag">Go</span>
+        <span class="tag">PostgreSQL</span>
+      </div>
+      <p>
+        A multiplayer Dots and Boxes game built with React, Tanstack Query, Zod,
+        Go, Echo , PostgreSQL. Features real-time gameplay, user authentication,
+        and a leaderboard system.
+      </p>
+
+      <div class="button-group">
+        <Button href="/projects/DnBoxes/" name="View Project" />
+      </div>
+    </Card>
+
+    <Card>
+      <h2>Project Two</h2>
+      <p>
+        A brief description of Project Two. This project involves building a web
+        application using React and Node.js to manage tasks efficiently.
+      </p>
+      <div class="button-group">
+        <Button href="/projects/project-one/" name="View Project" />
+      </div>
+    </Card>
+
+    <Card>
+      <h2>Project Three</h2>
+      <p>
+        A brief description of Project Three. This project involves building a
+        web application using React and Node.js to manage tasks efficiently.
+      </p>
+      <div class="button-group">
+        <Button href="/projects/project-one/" name="View Project" />
+      </div>
     </Card>
   </section>
 
