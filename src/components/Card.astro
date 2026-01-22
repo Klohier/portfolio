@@ -8,17 +8,51 @@
 
 <style>
   .card {
-    /* max-width: fit-content; */
-    /* color: black; */
-    /* background-color: #f9f9f9; */
-
-    border: 1px solid transparent;
-    background:
-      linear-gradient(navy, transparent) padding-box,
-      linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1) border-box;
+    background: #1e2938;
+    border: black 1px solid;
     border-radius: 8px;
     padding: 1rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .card::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #ff6b6b);
+    background-size: 300% 300%;
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+  }
+
+  .card:hover::before {
+    opacity: 1;
+    animation: gradientShift 3s ease infinite;
+  }
+
+  .card:hover {
+    box-shadow:
+      0 4px 6px rgba(0, 0, 0, 0.1),
+      0 0 20px rgba(255, 107, 107, 0.3),
+      0 0 40px rgba(78, 205, 196, 0.2);
+  }
+
+  @keyframes gradientShift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
   }
 </style>

@@ -2,32 +2,65 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
 import heroImage from "../assets/images/_DSC0082.jpg";
+import placeholder from "../assets/images/placeholder.png";
+import linkedinLogo from "../assets/images/InBug-White.png";
 
 import Button from "../components/Button.astro";
 import Card from "../components/Card.astro";
 const pageTitle = "Home Page";
 ---
 
-<!-- <script>
-  import { gsap } from "gsap";
-
-  import { InertiaPlugin } from "gsap/InertiaPlugin";
-  import { TextPlugin } from "gsap/TextPlugin";
-
-  gsap.registerPlugin(InertiaPlugin, TextPlugin);
-  const hero = document.getElementById("hero-section");
-  gsap.to(hero, {
-    duration: 2,
-    text: "Some really cool intro text!, Enough to draw attention. I need to make it longer. There we go! This is good. ",
-    ease: "none",
-  });
-</script> -->
 <style>
+  .button-group {
+    display: flex;
+    gap: 1rem;
+    margin-top: auto;
+    padding-top: 1rem;
+  }
+
+  .socials {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .socials :global(.card) {
+    margin-bottom: 0;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1;
+    transition: transform 0.3s ease;
+  }
+
+  .socials :global(.card):hover {
+    transform: scale(1.05);
+  }
+
+  .socials :global(.card img) {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .socials > :global(a) {
+    grid-column: 1 / -1;
+    margin-top: 0.5rem;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding: 0 1rem;
+  }
+
   .hero-section {
     display: flex;
-    flex-direction: column;
     color: var(--text-color);
-    /* margin-bottom: 2rem; */
   }
 
   .hero-section h1 {
@@ -37,15 +70,16 @@ const pageTitle = "Home Page";
   }
 
   .hero-image {
-    align-self: center;
+    display: block;
     border-radius: 50%;
-    margin: 1rem 0;
+    margin: 1rem auto;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 
   .tags {
     margin-bottom: 1rem;
   }
+
   .tag {
     display: inline-block;
     background-color: var(--primary-color);
@@ -55,61 +89,132 @@ const pageTitle = "Home Page";
     border-radius: 0.25rem;
     font-size: 0.875rem;
   }
+
+  @media (min-width: 768px) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+
+    .hero-section {
+      grid-column: span 2;
+    }
+
+    .skills-card {
+      grid-column: span 1;
+      grid-row: span 2;
+    }
+
+    .featured-project {
+      grid-column: span 2;
+    }
+
+    .regular-card {
+      grid-column: span 1;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      max-width: 1400px;
+      margin: 0 auto 2rem;
+      padding: 1rem 2rem;
+    }
+
+    .hero-section {
+      grid-column: span 3;
+    }
+
+    .skills-card {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
+    .featured-project {
+      grid-column: span 4;
+      grid-row: span 1;
+    }
+
+    .regular-card {
+      grid-column: span 2;
+    }
+
+    .hero-section h1 {
+      font-size: 1.75rem;
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .grid {
+      max-width: 1600px;
+    }
+
+    .hero-section {
+      grid-column: span 3;
+    }
+
+    .skills-card {
+      grid-column: span 3;
+    }
+
+    .featured-project {
+      grid-column: span 4;
+    }
+
+    .regular-card {
+      grid-column: span 2;
+    }
+  }
 </style>
-
 <BaseLayout pageTitle={pageTitle}>
-  <section class="hero-section">
-    <h1>Hi I'm Keiji Lohier!</h1>
-    <Image
-      src={heroImage}
-      alt="A bird sitting on a nest of eggs."
-      layout="constrained"
-      width={200}
-      height={200}
-      class="hero-image"
-    />
-
-    <p>
-      Hey There! I'm Keiji. I'm a passionate introvert who loves building things
-      with code and learning about emerging technologies.
-    </p>
-
-    <p>
-      When not messing around with tech you can find me taking photos, playing
-      around with my DJ decks and going down the rabbit hole about ancient
-      civilizations.
-    </p>
-
-    <p>
-      My first experience with programming was when I was around the 5th grade
-      and wanted to make my own game. I had heard about C++ and decided to try
-      and learn that. Ended up learning BASIC and creating a text-based
-      adventure game. Fell in love with programming since.
-    </p>
-
-    <p>
-      Since then, I've been honing my skills and keeping up with the tech as it
-      emerges. I recently graduated from Rochester Institute of Technology and
-      I'm seeking a full-time role where I can help a company achieve their
-      goals.
-    </p>
-
-    <p>
-      Currently I have been messing around with self-hosting and have a homelab
-      setup. I host game servers for friends and can stream my own music library
-      over the internet.
-    </p>
-
-    <div class="button-group">
-      <Button href="/about/" name="Projects" />
-      <Button href="/blog/" name="Contact Me" />
+  <div class="grid">
+    <div class="hero-section">
+      <Card>
+        <h1>Hi I'm Keiji Lohier!</h1>
+        <Image
+          src={placeholder}
+          alt="placeholder"
+          layout="constrained"
+          width={200}
+          height={200}
+          class="hero-image"
+        />
+        <p>
+          Hey There! I'm Keiji. I'm a passionate introvert who loves building
+          things with code and learning about emerging technologies.
+        </p>
+        <p>
+          When not messing around with tech you can find me taking photos,
+          playing around with my DJ decks and going down the rabbit hole about
+          ancient civilizations.
+        </p>
+        <p>
+          My first experience with programming was when I was around the 5th
+          grade and wanted to make my own game. I had heard about C++ and
+          decided to try and learn that. Ended up learning BASIC and creating a
+          text-based adventure game. Fell in love with programming since.
+        </p>
+        <p>
+          Since then, I've been honing my skills and keeping up with the tech as
+          it emerges. I recently graduated from Rochester Institute of
+          Technology and I'm seeking a full-time role where I can help a company
+          achieve their goals.
+        </p>
+        <p>
+          Currently I have been messing around with self-hosting and have a
+          homelab setup. I host game servers for friends and can stream my own
+          music library over the internet.
+        </p>
+        <div class="button-group">
+          <Button href="/about/" name="Projects" />
+          <Button href="/blog/" name="Contact Me" />
+        </div>
+      </Card>
     </div>
-  </section>
-
-  <section>
-    <Card>
+    <Card class="skills-card">
       <h2>My Skills</h2>
-
       <h3>Languages</h3>
       <ul>
         <li>JavaScript (ES6+)</li>
@@ -121,7 +226,6 @@ const pageTitle = "Home Page";
         <li>PostgreSQL</li>
         <li>Java</li>
       </ul>
-
       <h3>Frameworks & Libraries</h3>
       <ul>
         <li>React</li>
@@ -129,7 +233,6 @@ const pageTitle = "Home Page";
         <li>Astro</li>
         <li>Echo (Go)</li>
       </ul>
-
       <hr />
       <h3>Tools & Platforms</h3>
       <ul>
@@ -144,11 +247,9 @@ const pageTitle = "Home Page";
         <li>Adobe Creative Cloud</li>
       </ul>
     </Card>
-  </section>
-  <section>
-    <!-- This might be able to be loaded dynamically -->
-    <h1>Projects</h1>
-    <Card>
+
+    <Card class="featured-project">
+      <Image src={placeholder} alt="placeholder." layout="constrained" />
       <h2>DnBoxes</h2>
       <div class="tags">
         <span class="tag">React</span>
@@ -158,16 +259,15 @@ const pageTitle = "Home Page";
       </div>
       <p>
         A multiplayer Dots and Boxes game built with React, Tanstack Query, Zod,
-        Go, Echo , PostgreSQL. Features real-time gameplay, user authentication,
+        Go, Echo, PostgreSQL. Features real-time gameplay, user authentication,
         and a leaderboard system.
       </p>
-
       <div class="button-group">
         <Button href="/projects/DnBoxes/" name="View Project" />
       </div>
     </Card>
-
-    <Card>
+    <Card class="regular-card">
+      <Image src={placeholder} alt="placeholder." layout="constrained" />
       <h2>Commander Roulettee</h2>
       <div class="tags">
         <span class="tag">React</span>
@@ -183,27 +283,80 @@ const pageTitle = "Home Page";
       </div>
     </Card>
 
-    <Card>
-      <h2>Project Three</h2>
+    <Card class="regular-card">
+      <Image src={placeholder} alt="placeholder." layout="constrained" />
+      <h2>Reconnect</h2>
+      <div class="tags">
+        <span class="tag">React</span>
+        <span class="tag">TypeScript</span>
+        <span class="tag">NestJS</span>
+      </div>
       <p>
-        A brief description of Project Three. This project involves building a
-        web application using React and Node.js to manage tasks efficiently.
+        A CRM application designed to help people reconnect with friends and
+        close ones. Developed using React and NestJS, featuring user
+        authentication, contact management, and reminder systems.
       </p>
       <div class="button-group">
         <Button href="/projects/project-one/" name="View Project" />
       </div>
     </Card>
-  </section>
 
-  <section>
-    <Card>
+    <Card class="regular-card">
       <h2>Get In Touch</h2>
       <p>
         I'm always open to discussing new projects, creative ideas, or
         opportunities to be part of your visions. Feel free to reach out to me
         through my social media channels or send me an email directly.
       </p>
-      <Button href="/contact/" name="Contact Me" />
+      <div class="socials">
+        <Card>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 98 96"
+            fill="none"
+          >
+            <g clip-path="url(#clip0_730_27136)">
+              <path
+                d="M41.4395 69.3848C28.8066 67.8535 19.9062 58.7617 19.9062 46.9902C19.9062 42.2051 21.6289 37.0371 24.5 33.5918C23.2559 30.4336 23.4473 23.7344 24.8828 20.959C28.7109 20.4805 33.8789 22.4902 36.9414 25.2656C40.5781 24.1172 44.4062 23.543 49.0957 23.543C53.7852 23.543 57.6133 24.1172 61.0586 25.1699C64.0254 22.4902 69.2891 20.4805 73.1172 20.959C74.457 23.543 74.6484 30.2422 73.4043 33.4961C76.4668 37.1328 78.0937 42.0137 78.0937 46.9902C78.0937 58.7617 69.1934 67.6621 56.3691 69.2891C59.623 71.3945 61.8242 75.9883 61.8242 81.252L61.8242 91.2051C61.8242 94.0762 64.2168 95.7031 67.0879 94.5547C84.4102 87.9512 98 70.6289 98 49.1914C98 22.1074 75.9883 6.69539e-07 48.9043 4.309e-07C21.8203 1.92261e-07 -1.9479e-07 22.1074 -4.3343e-07 49.1914C-6.20631e-07 70.4375 13.4941 88.0469 31.6777 94.6504C34.2617 95.6074 36.75 93.8848 36.75 91.3008L36.75 83.6445C35.4102 84.2188 33.6875 84.6016 32.1562 84.6016C25.8398 84.6016 22.1074 81.1563 19.4277 74.7441C18.375 72.1602 17.2266 70.6289 15.0254 70.3418C13.877 70.2461 13.4941 69.7676 13.4941 69.1934C13.4941 68.0449 15.4082 67.1836 17.3223 67.1836C20.0977 67.1836 22.4902 68.9063 24.9785 72.4473C26.8926 75.2227 28.9023 76.4668 31.2949 76.4668C33.6875 76.4668 35.2187 75.6055 37.4199 73.4043C39.0469 71.7773 40.291 70.3418 41.4395 69.3848Z"
+                fill="white"></path>
+            </g>
+            <defs>
+              <clipPath id="clip0_730_27136">
+                <rect width="98" height="96" fill="white"></rect>
+              </clipPath>
+            </defs>
+          </svg>
+        </Card>
+
+        <Card>
+          <Image src={linkedinLogo} alt="LinkedIn" layout="constrained" />
+        </Card>
+
+        <Card>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path
+              d="M4 7.00005L10.2 11.65C11.2667 12.45 12.7333 12.45 13.8 11.65L20 7"
+              stroke="#ffffff"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+            <rect
+              x="3"
+              y="5"
+              width="18"
+              height="14"
+              rx="2"
+              stroke="#ffffff"
+              stroke-width="2"
+              stroke-linecap="round"></rect>
+          </svg>
+        </Card>
+        <Button href="/contact/" name="Contact Me" />
+      </div>
     </Card>
-  </section>
+  </div>
 </BaseLayout>
