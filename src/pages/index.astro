@@ -30,6 +30,19 @@ const pageTitle = "Home Page";
     /* margin-bottom: 2rem; */
   }
 
+  .hero-section h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .hero-image {
+    align-self: center;
+    border-radius: 50%;
+    margin: 1rem 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
   .tags {
     margin-bottom: 1rem;
   }
@@ -51,8 +64,9 @@ const pageTitle = "Home Page";
       src={heroImage}
       alt="A bird sitting on a nest of eggs."
       layout="constrained"
-      width={800}
-      height={600}
+      width={200}
+      height={200}
+      class="hero-image"
     />
 
     <p>
@@ -132,6 +146,7 @@ const pageTitle = "Home Page";
     </Card>
   </section>
   <section>
+    <!-- This might be able to be loaded dynamically -->
     <h1>Projects</h1>
     <Card>
       <h2>DnBoxes</h2>
@@ -153,10 +168,15 @@ const pageTitle = "Home Page";
     </Card>
 
     <Card>
-      <h2>Project Two</h2>
+      <h2>Commander Roulettee</h2>
+      <div class="tags">
+        <span class="tag">React</span>
+        <span class="tag">TypeScript</span>
+      </div>
       <p>
-        A brief description of Project Two. This project involves building a web
-        application using React and Node.js to manage tasks efficiently.
+        An application where users can browse through a deck of commanders and
+        choose whether they like them or not. Features ability to view chosen
+        commanders later.
       </p>
       <div class="button-group">
         <Button href="/projects/project-one/" name="View Project" />
