@@ -1,9 +1,11 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
-import heroImage from "../assets/images/_DSC0082.jpg";
+import heroImage from "../assets/images/me.jpeg";
 import placeholder from "../assets/images/placeholder.png";
 import linkedinLogo from "../assets/images/InBug-White.png";
+import dnbImage from "../assets/images/gameplay.jpeg";
+import roulette from "../assets/images/roulette.jpeg";
 
 import Button from "../components/Button.astro";
 import Card from "../components/Card.astro";
@@ -20,18 +22,19 @@ const pageTitle = "Home Page";
 
   .socials {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1rem;
     margin-top: 1rem;
   }
 
   .socials :global(.card) {
+    max-width: 100%;
     margin-bottom: 0;
     padding: 0.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    aspect-ratio: 1;
+    /* aspect-ratio: 1; */
     transition: transform 0.3s ease;
   }
 
@@ -40,8 +43,8 @@ const pageTitle = "Home Page";
   }
 
   .socials :global(.card img) {
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 80%;
     object-fit: contain;
   }
 
@@ -63,6 +66,11 @@ const pageTitle = "Home Page";
     color: var(--text-color);
   }
 
+  .hero-section p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+
   .hero-section h1 {
     font-size: 2rem;
     margin-bottom: 1rem;
@@ -73,6 +81,10 @@ const pageTitle = "Home Page";
     display: block;
     border-radius: 50%;
     margin: 1rem auto;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    /* object-position: 40% 50%; */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 
@@ -92,7 +104,7 @@ const pageTitle = "Home Page";
 
   @media (min-width: 768px) {
     .grid {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 1.25rem;
     }
 
@@ -102,7 +114,6 @@ const pageTitle = "Home Page";
 
     .skills-card {
       grid-column: span 1;
-      grid-row: span 2;
     }
 
     .featured-project {
@@ -116,8 +127,8 @@ const pageTitle = "Home Page";
 
   @media (min-width: 1024px) {
     .grid {
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1rem;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0.5rem;
       max-width: 1400px;
       margin: 0 auto 2rem;
       padding: 1rem 2rem;
@@ -125,20 +136,22 @@ const pageTitle = "Home Page";
 
     .hero-section {
       grid-column: span 3;
-    }
-
-    .skills-card {
-      grid-column: span 2;
       grid-row: span 2;
     }
 
+    .skills-card {
+      grid-column: span 1;
+      grid-row: span 1;
+    }
+
     .featured-project {
-      grid-column: span 4;
+      grid-column: span 3;
       grid-row: span 1;
     }
 
     .regular-card {
-      grid-column: span 2;
+      grid-column: span 1;
+      grid-row: span 1;
     }
 
     .hero-section h1 {
@@ -153,18 +166,19 @@ const pageTitle = "Home Page";
 
     .hero-section {
       grid-column: span 3;
+      grid-row: span 2;
     }
 
     .skills-card {
-      grid-column: span 3;
+      grid-column: span 1;
     }
 
     .featured-project {
-      grid-column: span 4;
+      grid-column: span 3;
     }
 
     .regular-card {
-      grid-column: span 2;
+      grid-column: span 1;
     }
   }
 </style>
@@ -174,38 +188,22 @@ const pageTitle = "Home Page";
       <Card>
         <h1>Hi I'm Keiji Lohier!</h1>
         <Image
-          src={placeholder}
-          alt="placeholder"
+          src={heroImage}
+          alt="Keiji Lohier"
           layout="constrained"
-          width={200}
-          height={200}
           class="hero-image"
         />
         <p>
-          Hey There! I'm Keiji. I'm a passionate introvert who loves building
-          things with code and learning about emerging technologies.
+          Hey There! I'm Keiji, a developer passionate about building full-stack
+          applications with a focus on backend architecture, distributed
+          systems, and DevOps practices.
         </p>
+
         <p>
-          When not messing around with tech you can find me taking photos,
-          playing around with my DJ decks and going down the rabbit hole about
-          ancient civilizations.
-        </p>
-        <p>
-          My first experience with programming was when I was around the 5th
-          grade and wanted to make my own game. I had heard about C++ and
-          decided to try and learn that. Ended up learning BASIC and creating a
-          text-based adventure game. Fell in love with programming since.
-        </p>
-        <p>
-          Since then, I've been honing my skills and keeping up with the tech as
-          it emerges. I recently graduated from Rochester Institute of
-          Technology and I'm seeking a full-time role where I can help a company
-          achieve their goals.
-        </p>
-        <p>
-          Currently I have been messing around with self-hosting and have a
-          homelab setup. I host game servers for friends and can stream my own
-          music library over the internet.
+          I've been coding since 5th grade, when I built my first text-based
+          adventure game using Batch scripting. Today, I'm building full-stack
+          applications and exploring distributed systems architecture. Recent
+          RIT grad actively seeking full-time opportunities.
         </p>
         <div class="button-group">
           <Button href="/about/" name="Projects" />
@@ -213,9 +211,9 @@ const pageTitle = "Home Page";
         </div>
       </Card>
     </div>
+
     <Card class="skills-card">
-      <h2>My Skills</h2>
-      <h3>Languages</h3>
+      <h2>Languages</h2>
       <ul>
         <li>JavaScript (ES6+)</li>
         <li>TypeScript</li>
@@ -226,15 +224,20 @@ const pageTitle = "Home Page";
         <li>PostgreSQL</li>
         <li>Java</li>
       </ul>
-      <h3>Frameworks & Libraries</h3>
+    </Card>
+
+    <Card class="skills-card">
+      <h2>Frameworks & Libraries</h2>
       <ul>
         <li>React</li>
         <li>Node.js & Express</li>
         <li>Astro</li>
         <li>Echo (Go)</li>
       </ul>
-      <hr />
-      <h3>Tools & Platforms</h3>
+    </Card>
+
+    <Card class="skills-card">
+      <h2>Tools & Platforms</h2>
       <ul>
         <li>Git & GitHub</li>
         <li>Docker</li>
@@ -249,7 +252,11 @@ const pageTitle = "Home Page";
     </Card>
 
     <Card class="featured-project">
-      <Image src={placeholder} alt="placeholder." layout="constrained" />
+      <Image
+        src={dnbImage}
+        alt="gameplay image of dots and boxes."
+        layout="constrained"
+      />
       <h2>DnBoxes</h2>
       <div class="tags">
         <span class="tag">React</span>
@@ -266,8 +273,13 @@ const pageTitle = "Home Page";
         <Button href="/projects/DnBoxes/" name="View Project" />
       </div>
     </Card>
+
     <Card class="regular-card">
-      <Image src={placeholder} alt="placeholder." layout="constrained" />
+      <Image
+        src={roulette}
+        alt="Image of Magic Commander Card."
+        layout="constrained"
+      />
       <h2>Commander Roulettee</h2>
       <div class="tags">
         <span class="tag">React</span>
@@ -277,24 +289,6 @@ const pageTitle = "Home Page";
         An application where users can browse through a deck of commanders and
         choose whether they like them or not. Features ability to view chosen
         commanders later.
-      </p>
-      <div class="button-group">
-        <Button href="/projects/project-one/" name="View Project" />
-      </div>
-    </Card>
-
-    <Card class="regular-card">
-      <Image src={placeholder} alt="placeholder." layout="constrained" />
-      <h2>Reconnect</h2>
-      <div class="tags">
-        <span class="tag">React</span>
-        <span class="tag">TypeScript</span>
-        <span class="tag">NestJS</span>
-      </div>
-      <p>
-        A CRM application designed to help people reconnect with friends and
-        close ones. Developed using React and NestJS, featuring user
-        authentication, contact management, and reminder systems.
       </p>
       <div class="button-group">
         <Button href="/projects/project-one/" name="View Project" />
@@ -314,6 +308,8 @@ const pageTitle = "Home Page";
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 98 96"
             fill="none"
+            width="98"
+            height="96"
           >
             <g clip-path="url(#clip0_730_27136)">
               <path
@@ -337,6 +333,8 @@ const pageTitle = "Home Page";
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="none"
+            width="96"
+            height="96"
           >
             <path
               d="M4 7.00005L10.2 11.65C11.2667 12.45 12.7333 12.45 13.8 11.65L20 7"

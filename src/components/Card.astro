@@ -2,11 +2,20 @@
 
 ---
 
-<div class="card">
-  <slot />
+<div class="card-wrapper">
+  <div class="card">
+    <slot />
+  </div>
 </div>
 
 <style>
+  .card-wrapper {
+    opacity: 0;
+    transform: translateY(20px);
+    width: 100%;
+    height: 100%;
+  }
+
   .card {
     background: #1e2938;
     border: black 1px solid;
@@ -15,6 +24,11 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     position: relative;
+    height: 100%;
+  }
+
+  .card p {
+    line-height: 1.6;
   }
 
   .card::before {
@@ -56,3 +70,19 @@
     }
   }
 </style>
+
+<script>
+  import { gsap } from "gsap";
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const cardWrappers = document.querySelectorAll(".card-wrapper");
+
+    gsap.to(cardWrappers, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      stagger: 0.1,
+      ease: "power2.out",
+    });
+  });
+</script>
