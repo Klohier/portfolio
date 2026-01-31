@@ -67,4 +67,5 @@ Managing which cards have been seen and which are saved taught me practical stat
 
 ## Links
 
-- [GitHub Repository](#)
+- [GitHub Repository](https://github.com/Klohier/Commander-Roulette)
+- [Live Link](https://bucolic-taiyaki-056ce7.netlify.app/)
