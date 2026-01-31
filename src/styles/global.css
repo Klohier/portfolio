@@ -23,6 +23,7 @@ Use a better box model (opinionated).
 */
 
 html {
+  background-color: var(--background-color);
   font-family:
     system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji"; /* 1 */
