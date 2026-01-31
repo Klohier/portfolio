@@ -38,10 +38,6 @@ const pageTitle = "Home Page";
     transition: transform 0.3s ease;
   }
 
-  .socials :global(.card):hover {
-    transform: scale(1.05);
-  }
-
   .socials :global(.card img) {
     width: 80%;
     height: 80%;
@@ -66,6 +62,10 @@ const pageTitle = "Home Page";
     color: var(--text-color);
   }
 
+  .hero-content {
+    margin-bottom: 1rem;
+  }
+
   .hero-section p {
     margin-bottom: 1rem;
     line-height: 1.6;
@@ -84,8 +84,14 @@ const pageTitle = "Home Page";
     width: 200px;
     height: 200px;
     object-fit: cover;
-    /* object-position: 40% 50%; */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
   }
 
   .tags {
@@ -109,19 +115,11 @@ const pageTitle = "Home Page";
     }
 
     .hero-section {
-      grid-column: span 2;
+      grid-column: span 3;
     }
 
-    .skills-card {
-      grid-column: span 1;
-    }
-
-    .featured-project {
-      grid-column: span 2;
-    }
-
-    .regular-card {
-      grid-column: span 1;
+    .skills-grid {
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 
@@ -130,32 +128,113 @@ const pageTitle = "Home Page";
       grid-template-columns: repeat(6, 1fr);
       gap: 0.5rem;
       max-width: 1400px;
-      margin: 0 auto 2rem;
+      margin: 0 auto 0;
       padding: 1rem 2rem;
     }
 
-    .hero-section {
+    /* .hero-section {
       grid-column: span 3;
       grid-row: span 2;
-    }
-
-    .skills-card {
-      grid-column: span 1;
-      grid-row: span 1;
-    }
-
-    .featured-project {
-      grid-column: span 3;
-      grid-row: span 1;
-    }
-
-    .regular-card {
-      grid-column: span 1;
-      grid-row: span 1;
-    }
+    } */
 
     .hero-section h1 {
-      font-size: 1.75rem;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-section p {
+      font-size: 0.9rem;
+      margin-bottom: 0.75rem;
+      line-height: 1.4;
+    }
+
+    .hero-image {
+      width: 150px;
+      height: 150px;
+      margin: 0.5rem auto;
+    }
+
+    .hero-content {
+      margin-bottom: 0.75rem;
+    }
+
+    .button-group {
+      gap: 0.75rem;
+      padding-top: 0.75rem;
+    }
+
+    .skills-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+
+    .skills-grid :global(.card-wrapper) {
+      width: 100%;
+      height: 100%;
+    }
+
+    .skills-grid :global(.card) {
+      height: 100%;
+      padding: 0.75rem !important;
+    }
+
+    .skills-grid h2 {
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .skills-grid ul {
+      margin: 0;
+      padding-left: 1rem;
+    }
+
+    .skills-grid li {
+      font-size: 0.8rem;
+      line-height: 1.3;
+      margin-bottom: 0.15rem;
+    }
+
+    .featured-project :global(.card),
+    .regular-card :global(.card) {
+      padding: 0.75rem !important;
+    }
+
+    .featured-project h2,
+    .regular-card h2 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .featured-project p,
+    .regular-card p {
+      font-size: 0.85rem;
+      line-height: 1.35;
+      margin-bottom: 0.5rem;
+    }
+
+    .featured-project img,
+    .regular-card img {
+      max-height: 120px;
+      object-fit: cover;
+    }
+
+    .tags {
+      margin-bottom: 0.5rem;
+    }
+
+    .tag {
+      padding: 0.2rem 0.4rem;
+      font-size: 0.75rem;
+    }
+
+    .socials {
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .social-icon {
+      padding: 0.4rem;
     }
   }
 
@@ -164,17 +243,8 @@ const pageTitle = "Home Page";
       max-width: 1600px;
     }
 
-    .hero-section {
-      grid-column: span 3;
-      grid-row: span 2;
-    }
-
-    .skills-card {
-      grid-column: span 1;
-    }
-
     .featured-project {
-      grid-column: span 3;
+      grid-column: span 1;
     }
 
     .regular-card {
@@ -186,70 +256,69 @@ const pageTitle = "Home Page";
   <div class="grid">
     <div class="hero-section">
       <Card>
-        <h1>Hi I'm Keiji Lohier!</h1>
-        <Image
-          src={heroImage}
-          alt="Keiji Lohier"
-          layout="constrained"
-          class="hero-image"
-        />
-        <p>
-          Hey There! I'm Keiji, a developer passionate about building full-stack
-          applications with a focus on backend architecture, distributed
-          systems, and DevOps practices.
-        </p>
+        <div class="hero-content">
+          <Image
+            src={heroImage}
+            alt="Keiji Lohier"
+            layout="constrained"
+            class="hero-image"
+          />
+          <p>
+            Hey There! I'm Keiji, a developer passionate about building
+            full-stack applications with a focus on backend architecture,
+            distributed systems, and DevOps practices.
+          </p>
 
-        <p>
-          I've been coding since 5th grade, when I built my first text-based
-          adventure game using Batch scripting. Today, I'm building full-stack
-          applications and exploring distributed systems architecture. Recent
-          RIT grad actively seeking full-time opportunities.
-        </p>
-        <div class="button-group">
-          <Button href="/about/" name="Projects" />
-          <Button href="/blog/" name="Contact Me" />
+          <p>
+            I've been coding since 5th grade, when I built my first text-based
+            adventure game using Batch scripting. Today, I'm building full-stack
+            applications and exploring distributed systems architecture. Recent
+            RIT grad actively seeking full-time opportunities.
+          </p>
+        </div>
+
+        <div class="skills-grid">
+          <Card>
+            <h2>Languages</h2>
+            <ul>
+              <li>JavaScript (ES6+)</li>
+              <li>TypeScript</li>
+              <li>HTML5 & CSS3</li>
+              <li>Python</li>
+              <li>Go</li>
+              <li>MySQL</li>
+              <li>PostgreSQL</li>
+              <li>Java</li>
+            </ul>
+          </Card>
+
+          <Card>
+            <h2>Frameworks & Libraries</h2>
+            <ul>
+              <li>React</li>
+              <li>Node.js & Express</li>
+              <li>Astro</li>
+              <li>Echo (Go)</li>
+            </ul>
+          </Card>
+
+          <Card>
+            <h2>Tools & Platforms</h2>
+            <ul>
+              <li>Git & GitHub</li>
+              <li>Docker</li>
+              <li>VS Code</li>
+              <li>Postman</li>
+              <li>Webflow</li>
+              <li>Proxmox</li>
+              <li>Linux</li>
+              <li>Figma</li>
+              <li>Adobe Creative Cloud</li>
+            </ul>
+          </Card>
         </div>
       </Card>
     </div>
-
-    <Card class="skills-card">
-      <h2>Languages</h2>
-      <ul>
-        <li>JavaScript (ES6+)</li>
-        <li>TypeScript</li>
-        <li>HTML5 & CSS3</li>
-        <li>Python</li>
-        <li>Go</li>
-        <li>MySQL</li>
-        <li>PostgreSQL</li>
-        <li>Java</li>
-      </ul>
-    </Card>
-
-    <Card class="skills-card">
-      <h2>Frameworks & Libraries</h2>
-      <ul>
-        <li>React</li>
-        <li>Node.js & Express</li>
-        <li>Astro</li>
-        <li>Echo (Go)</li>
-      </ul>
-    </Card>
-
-    <Card class="skills-card">
-      <h2>Tools & Platforms</h2>
-      <ul>
-        <li>Git & GitHub</li>
-        <li>Docker</li>
-        <li>VS Code</li>
-        <li>Postman</li>
-        <li>Webflow</li>
-        <li>Proxmox</li>
-        <li>Linux</li>
-        <li>Figma</li>
-        <li>Adobe Creative Cloud</li>
-      </ul>
-    </Card>
 
     <Card class="featured-project">
       <Image
@@ -280,7 +349,7 @@ const pageTitle = "Home Page";
         alt="Image of Magic Commander Card."
         layout="constrained"
       />
-      <h2>Commander Roulettee</h2>
+      <h2>Commander Roulette</h2>
       <div class="tags">
         <span class="tag">React</span>
         <span class="tag">TypeScript</span>
@@ -353,7 +422,6 @@ const pageTitle = "Home Page";
               stroke-linecap="round"></rect>
           </svg>
         </Card>
-        <Button href="/contact/" name="Contact Me" />
       </div>
     </Card>
   </div>
