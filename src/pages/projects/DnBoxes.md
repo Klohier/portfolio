@@ -35,7 +35,7 @@ I created this project to practice implementing a distributed system with real-t
 - Tanstack Query
 - Zod Validation
 - React Form
-- Toaster
+- Sonner
 
 **Infrastructure**
 
@@ -73,11 +73,11 @@ The most challenging aspects were trying to figure out the boundaries between pa
 
 ### Docker Containerization with Docker Compose Deployment
 
-This allowed me to quickly get up and running working on this project from whatever environment I found myself in. This also made it very easy to deploy my project on other serveres.
+Containerized the application using Docker with Docker Compose orchestration. This eliminated environment-specific issues and made the project immediately runnable on any machine—whether my local development setup, a staging server, or production infrastructure. Deployment became as simple as cloning the repo and running docker-compose up
 
 ### Importance of Seperation of Concerns
 
-Since I took the time to make sure service and function did one thing only, it made it easier to refactor my project as I knew changing one thing would not effect another part of the system. The project being decoupled was highly effective.
+I structured the codebase around single responsibility principles, ensuring each service and function served one clear purpose. This architectural decision proved invaluable during refactoring. Changes to individual components remained isolated, allowing me to evolve the system confidently without cascading side effects.
 
 ## Future Enhancements
 
@@ -86,3 +86,4 @@ I plan on adding a smarter bot that would use the minimax algorithim with alpha 
 ## Links
 
 - [GitHub Repository](https://github.com/Klohier/DnBoxes)
+- [Live Link](https://dotsandboxesonline.com/)
