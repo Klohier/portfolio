@@ -10,6 +10,8 @@ pubDate: 2026-01-20
 tags: ["DnBoxes", "React", "Typescript", "Golang"]
 ---
 
+import Button from "../../components/Button.astro";
+
 # DnBoxes (Dots and Boxes)
 
 A real-time multiplayer platform for playing Dots and Boxes, featuring WebSocket-based gameplay, comprehensive lobby system, and live chat. Built as a learning project to explore distributed systems architecture, event sourcing patterns, and production deployment strategies.
@@ -57,17 +59,17 @@ I created this project to practice implementing a distributed system with real-t
 - Event Bus
 - Proper separation of concerns using DDD principles
 - Auth system
-- Dependecy Injection
+- Dependency Injection
 
 ## Development Journey
 
-This project went through significant architectural evolution. I started with a simple service oriented archeticutre approach and refactored to a proper Domain-Driven Design architecture with an event bus, which provided valuable experience with:
+This project went through significant architectural evolution. I started with a simple service oriented architecture approach and refactored to a proper Domain-Driven Design architecture with an event bus, which provided valuable experience with:
 
 - Implementing event-driven communication patterns
 - Managing WebSocket connections and connection lifecycle
 - Building responsive real-time UI with complex state management
 
-The most challenging aspects were trying to figure out the boundaries between packages. For example I was struggling figuring out how to seperate my websocket from being coupled with everything else in the system.
+The most challenging aspects were trying to figure out the boundaries between packages. For example I was struggling figuring out how to separate my websocket from being coupled with everything else in the system.
 
 ## What I Learned
 
@@ -75,15 +77,15 @@ The most challenging aspects were trying to figure out the boundaries between pa
 
 Containerized the application using Docker with Docker Compose orchestration. This eliminated environment-specific issues and made the project immediately runnable on any machine—whether my local development setup, a staging server, or production infrastructure. Deployment became as simple as cloning the repo and running docker-compose up
 
-### Importance of Seperation of Concerns
+### Importance of Separation of Concerns
 
 I structured the codebase around single responsibility principles, ensuring each service and function served one clear purpose. This architectural decision proved invaluable during refactoring. Changes to individual components remained isolated, allowing me to evolve the system confidently without cascading side effects.
 
 ## Future Enhancements
 
-I plan on adding a smarter bot that would use the minimax algorithim with alpha beta pruning rather than if conditionals.
+I plan on adding a smarter bot that would use the minimax algorithm with alpha beta pruning rather than if conditionals.
 
 ## Links
 
-- [GitHub Repository](https://github.com/Klohier/DnBoxes)
-- [Live Link](https://dotsandboxesonline.com/)
+<Button href="https://github.com/Klohier/DnBoxes" name="View on GitHub" />
+<Button href="https://dotsandboxesonline.com/" name="Try Live Demo" />
