@@ -14,7 +14,7 @@ import Button from "../../components/Button.astro";
 
 # DnBoxes (Dots and Boxes)
 
-A real-time multiplayer platform for playing Dots and Boxes, featuring WebSocket-based gameplay, comprehensive lobby system, and live chat. Built as a learning project to explore distributed systems architecture, event sourcing patterns, and production deployment strategies.
+A real-time multiplayer platform for playing Dots and Boxes, featuring WebSocket-based gameplay, lobby system, and live chat. Built as a learning project to explore distributed systems architecture, event sourcing patterns, and production deployment strategies.
 
 ## Overview
 
@@ -35,6 +35,7 @@ I created this project to practice implementing a distributed system with real-t
 - React with TypeScript
 - Real-time UI updates via WebSocket
 - Tanstack Query
+- Tanstack Router
 - Zod Validation
 - React Form
 - Sonner
@@ -43,7 +44,7 @@ I created this project to practice implementing a distributed system with real-t
 
 - Docker containerization
 - Caddy reverse proxy
-- VPS
+- Homelab server
 
 ## Key Features
 
@@ -60,6 +61,7 @@ I created this project to practice implementing a distributed system with real-t
 - Proper separation of concerns using DDD principles
 - Auth system
 - Dependency Injection
+- Event Sourcing
 
 ## Development Journey
 
@@ -77,13 +79,21 @@ The most challenging aspects were trying to figure out the boundaries between pa
 
 Containerized the application using Docker with Docker Compose orchestration. This eliminated environment-specific issues and made the project immediately runnable on any machine—whether my local development setup, a staging server, or production infrastructure. Deployment became as simple as cloning the repo and running docker-compose up
 
+### Deployment on Homelab server
+
+Deployed on self-hosted Proxmox infrastructure with full Docker containerization. Cloudflare Tunnel provides secure external access without port forwarding, offering DDoS protection and automatic SSL/TLS encryption. The production environment uses Docker Compose to orchestrate the Go application, PostgreSQL, Redis, and Caddy reverse proxy with isolated networking and persistent volume storage.
+
 ### Importance of Separation of Concerns
 
 I structured the codebase around single responsibility principles, ensuring each service and function served one clear purpose. This architectural decision proved invaluable during refactoring. Changes to individual components remained isolated, allowing me to evolve the system confidently without cascading side effects.
 
+### How to use Event Sourcing
+
+Event sourcing provides a powerful advantage: instead of storing just the current game state, I store every event that occurs. This event log becomes a complete history that can be replayed to reconstruct any game state, making features like game replays trivial to implement.
+
 ## Future Enhancements
 
-I plan on adding a smarter bot that would use the minimax algorithm with alpha beta pruning rather than if conditionals.
+Planned enhancements include developing an advanced AI system using Minimax with alpha-beta pruning. This will replace the current heuristic-based approach with game-tree search, enabling the bot to evaluate future game states and make optimal strategic decisions.
 
 ## Links
 
