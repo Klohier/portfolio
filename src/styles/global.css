@@ -41,7 +41,7 @@ Remove the margin in all browsers.
 */
 
 body {
-  background-color: var(--background-color);
+  background-color: #003049;
   margin: 0;
 }
 
