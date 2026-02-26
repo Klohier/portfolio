@@ -66,12 +66,11 @@ I created this project to practice implementing a distributed system with real-t
 - Event Bus
 - Proper separation of concerns using DDD principles
 - Auth system
-- Dependenncy Injection
+- Dependency Injection
 - Event Sourcing
 
 ## Development Journey
 
-This project went through significant architectural evolution. I started with a simple service oriented architecture approach and refactored to a proper Domain-Driven Design architecture with an event bus, which provided valuable experience with:
 This project went through significant architectural evolution. I started with a simple service oriented architecture approach and refactored to a proper Domain-Driven Design architecture with an event bus, which provided valuable experience with:
 
 - Implementing event-driven communication patterns
@@ -88,7 +87,7 @@ Containerized the application using Docker with Docker Compose orchestration. Th
 
 ### CI/CD with GitHub Actions
 
-Every push to `main` triggers an automated deployment pipeline. The workflow SSHes into my Proxmox homelab VM, pulls the latest code, and rebuilds the containers with `docker compose up -d --build` — with zero manual steps required.
+Every push to `main` triggers an automated deployment pipeline. The workflow SSHes into my Proxmox homelab VM, pulls the latest code, and rebuilds the containers with `docker compose up -d --build` , with zero manual steps required.
 
 The interesting challenge here was that my homelab isn't publicly exposed. Rather than opening an SSH port to the internet, the pipeline connects through a Cloudflare Tunnel using `cloudflared` as an SSH proxy command. This keeps the server completely off the public internet while still allowing GitHub Actions' runners to reach it securely using short-lived Cloudflare Access service tokens stored as repository secrets.
 
@@ -96,15 +95,11 @@ The interesting challenge here was that my homelab isn't publicly exposed. Rathe
 
 I structured the codebase around single responsibility principles, ensuring each service and function served one clear purpose. This architectural decision proved invaluable during refactoring. Changes to individual components remained isolated, allowing me to evolve the system confidently without cascading side effects.
 
-### How to use Event Sourcing
+### Event Sourcing for Game Replays
 
-Event sourcing provides a powerful advantage: instead of storing just the current game state, I store every event that occurs. This event log becomes a complete history that can be replayed to reconstruct any game state, making features like game replays trivial to implement.
+I reached for event sourcing specifically to make game replays easy to implement. Rather than storing just the current game state, every action is appended to an immutable event log , so replaying a game is as simple as reading the log back from the beginning. It worked exactly as I hoped, and the implementation was surprisingly straightforward once the event schema was in place.
+What I didn't anticipate was the tradeoff that comes with immutability. When a guest account is upgraded to a registered user, the historical event log still references the old guest identity, because those events were written at a point in time and don't retroactively update. It's a small bug but it was a good reminder that you still have to think carefully about identity changes when your event log is immutable.
 
 ## Future Enhancements
 
 I plan on adding a smarter bot that would use the minimax algorithm with alpha-beta pruning rather than if conditionals.
-
-## Links
-
-- [GitHub Repository](https://github.com/Klohier/DnBoxes)
-- [Live Link](https://dotsandboxesonline.com/)
