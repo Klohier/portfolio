@@ -4,7 +4,7 @@ title: Commander Roulette
 author: Keiji Lohier
 description: "A Tinder-style interface for discovering Magic: The Gathering commanders"
 image:
-  url: "/roulette.jpeg"
+  url: "/image.png"
   alt: "Commander Roulette card interface."
 pubDate: 2026-01-31
 tags: ["Commander Roulette", "React", "Typescript", "Scryfall API"]
