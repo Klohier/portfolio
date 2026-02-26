@@ -32,6 +32,7 @@ I created this project to practice implementing a distributed system with real-t
 - Redis as event bus for real-time updates
 - WebSocket protocol for bidirectional communication
 - Domain Driven Design
+- Event Sourcing
 
 **Frontend**
 
@@ -47,7 +48,9 @@ I created this project to practice implementing a distributed system with real-t
 
 - Docker containerization
 - Caddy reverse proxy
-- Homelab server
+- Proxmox VM
+- GitHub Actions CI/CD
+- Cloudflare Tunnel
 
 ## Key Features
 
@@ -63,28 +66,31 @@ I created this project to practice implementing a distributed system with real-t
 - Event Bus
 - Proper separation of concerns using DDD principles
 - Auth system
-- Dependency Injection
+- Dependenncy Injection
 - Event Sourcing
 
 ## Development Journey
 
+This project went through significant architectural evolution. I started with a simple service oriented architecture approach and refactored to a proper Domain-Driven Design architecture with an event bus, which provided valuable experience with:
 This project went through significant architectural evolution. I started with a simple service oriented architecture approach and refactored to a proper Domain-Driven Design architecture with an event bus, which provided valuable experience with:
 
 - Implementing event-driven communication patterns
 - Managing WebSocket connections and connection lifecycle
 - Building responsive real-time UI with complex state management
 
-The most challenging aspects were trying to figure out the boundaries between packages. For example I was struggling figuring out how to separate my websocket from being coupled with everything else in the system.
+The most challenging aspects were trying to figure out the boundaries between packages. For example I was struggling figuring out how to separate my WebSocket from being coupled with everything else in the system.
 
 ## What I Learned
 
 ### Docker Containerization with Docker Compose Deployment
 
-Containerized the application using Docker with Docker Compose orchestration. This eliminated environment-specific issues and made the project immediately runnable on any machine, whether my local development setup or production infrastructure. Deployment became as simple as cloning the repo and running docker-compose up
+Containerized the application using Docker with Docker Compose orchestration. This eliminated environment-specific issues and made the project immediately runnable on any machine, whether my local development setup or production infrastructure. Deployment became as simple as cloning the repo and running `docker compose up`.
 
-### Deployment on Homelab server
+### CI/CD with GitHub Actions
 
-Deployed on self-hosted Proxmox infrastructure with full Docker containerization. Cloudflare Tunnel provides secure external access without port forwarding, offering DDoS protection and automatic SSL/TLS encryption. The production environment uses Docker Compose to orchestrate the Go application, PostgreSQL, Redis, and Caddy reverse proxy with isolated networking and persistent volume storage.
+Every push to `main` triggers an automated deployment pipeline. The workflow SSHes into my Proxmox homelab VM, pulls the latest code, and rebuilds the containers with `docker compose up -d --build` — with zero manual steps required.
+
+The interesting challenge here was that my homelab isn't publicly exposed. Rather than opening an SSH port to the internet, the pipeline connects through a Cloudflare Tunnel using `cloudflared` as an SSH proxy command. This keeps the server completely off the public internet while still allowing GitHub Actions' runners to reach it securely using short-lived Cloudflare Access service tokens stored as repository secrets.
 
 ### Importance of Separation of Concerns
 
@@ -96,4 +102,9 @@ Event sourcing provides a powerful advantage: instead of storing just the curren
 
 ## Future Enhancements
 
-Planned enhancements include developing an advanced AI system using Minimax with alpha-beta pruning. This will replace the current heuristic-based approach with game-tree search, enabling the bot to evaluate future game states and make optimal strategic decisions.
+I plan on adding a smarter bot that would use the minimax algorithm with alpha-beta pruning rather than if conditionals.
+
+## Links
+
+- [GitHub Repository](https://github.com/Klohier/DnBoxes)
+- [Live Link](https://dotsandboxesonline.com/)
