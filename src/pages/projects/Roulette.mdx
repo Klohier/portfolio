@@ -7,12 +7,23 @@ image:
   url: "/image.png"
   alt: "Commander Roulette card interface."
 pubDate: 2026-01-31
-tags: ["Commander Roulette", "React", "Typescript", "Scryfall API"]
+tags: ["Commander Roulette", "React", "Typescript", "Scryfall API", "GSAP"]
 ---
+
+import Button from "../../components/Button.astro";
 
 # Commander Roulette
 
 A simple Tinder-style interface for discovering Magic: The Gathering commanders. Click yes to save commanders you like, click no to see the next one, and view your saved collection in a separate tab.
+
+<Button
+  href="https://github.com/Klohier/Commander-Roulette"
+  name="View on GitHub"
+/>
+<Button
+  href="https://bucolic-taiyaki-056ce7.netlify.app/"
+  name="Try Live Demo"
+/>
 
 ## Overview
 
@@ -25,6 +36,7 @@ I created this project to make finding commanders for new EDH decks less overwhe
 - React with TypeScript
 - Scryfall API for card data
 - Local storage for saved commanders
+- GSAP
 
 ## Key Features
 
@@ -40,32 +52,32 @@ I created this project to make finding commanders for new EDH decks less overwhe
 - Separate tab to view all saved commanders
 - Remove cards from your collection
 - Persistent storage across sessions
+- See card on edh rec for deck ideas
 
 ## Development Journey
 
-This was a focused project to practice working with external APIs and managing simple state. The main challenges were:
+This was a focused project to practice working with external APIs and managing simple state. Also practiced using gsap animations for the card swiping feature. The main challenges were:
 
 - **API Integration**: Learning to work with Scryfall's REST API and understanding their data structure
 - **State Management**: Keeping track of seen cards and saved commanders
 - **Local Storage**: Persisting the collection without a backend
+- **GSAP Animations**: Learning to use the useGSAP hook, as well as how Draggable works.
 
 ## What I Learned
 
 ### Working with External APIs
 
-This was my first time integrating a comprehensive third-party API. I learned how to read API documentation, handle JSON responses, and structure my code to work with external data sources.
+I learned how to read API documentation, handle JSON responses, and structure my code to work with external data sources. Including the importance of having fallbacks for when external api does not include what you expected.
+
+### GSAP Animations
+
+I learned how to interact with the gsap framwork to add animations to the site while using their draggable abstraction in order to implement the card swiping feature. Using GSAP saved alot of time to finish up the project.
 
 ### Simple State Management
 
-Managing which cards have been seen and which are saved taught me practical state management patterns without over-engineering. Local storage provided a straightforward way to persist data without needing a backend.
+Managing which cards have been seen and which are saved taught me practical state management patterns. Local storage provided a straightforward way to persist data without needing a backend.
 
 ## Future Enhancements
 
-- Add basic filtering options (color identity, card text)
-- Implement undo for accidental clicks
 - Add ability to export saved commanders as a list
-
-## Links
-
-- [GitHub Repository](https://github.com/Klohier/Commander-Roulette)
-- [Live Link](https://bucolic-taiyaki-056ce7.netlify.app/)
+- Accounts to save session across devices
