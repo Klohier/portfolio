@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/ProjectLayout.astro
+layout: ../../layouts/MarkdownPostLayout.astro
 title: Self-Hosting a Side Project With GitHub Actions, Cloudflare Tunnel, and Docker Compose
 author: Keiji Lohier
 description: "A walkthrough of deploying a self-hosted app to a homelab using GitHub Actions CI/CD, Cloudflare Tunnel for secure SSH access, and Docker Compose."
@@ -21,14 +21,12 @@ tags:
 
 import Button from "../../components/Button.astro";
 
+I've been building a real-time multiplayer Dots and Boxes game in my spare time, and it runs in production on my homelab. Every time I push to `main`, a GitHub Actions workflow fires, SSHes into my homelab through a Cloudflare Tunnel, and redeploys the app with Docker Compose. The app is fully containerized, so if traffic ever warranted it, migrating to a cloud provider would be straightforward with no changes to the application itself. For a while, every deploy meant SSHing in manually and running the same three commands. It worked, but it was annoying enough that I kept putting off shipping small fixes. Eventually I got tired of it and wired up a proper pipeline.
+
 <Button href="https://github.com/Klohier/DnBoxes" name="View on GitHub" />
 <Button href="https://dotsandboxesonline.com/" name="Try Live Demo" />
 
-I've been building a real-time multiplayer Dots and Boxes game in my spare time, and a few weeks ago I finally got it running in production on hardware sitting in my apartment. Every time I push to `main`, a GitHub Actions workflow fires, SSHes into my homelab through a Cloudflare Tunnel, and redeploys the app with Docker Compose.
-
 ## The Stack
-
-The app is [Dots and Boxes Online](https://dotsandboxesonline.com/), a real-time multiplayer game with a Go backend, React frontend, and WebSockets for live gameplay. It runs inside Docker containers on a Proxmox VM.
 
 The self-hosted CI/CD pipeline breaks down like this:
 
@@ -70,9 +68,9 @@ jobs:
       - name: Setup SSH key
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.HOMELAB_SSH_KEY }}" > ~/.ssh/deploy_key
+          echo "${{ secrets.SERVER_SSH_KEY }}" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          echo "${{ secrets.HOMELAB_HOST_KEY }}" >> ~/.ssh/known_hosts
+          echo "${{ secrets.SERVER_HOST_KEY }}" >> ~/.ssh/known_hosts
       - name: Deploy
         env:
           CF_CLIENT_ID: ${{ secrets.CF_CLIENT_ID }}
@@ -80,8 +78,8 @@ jobs:
         run: |
           ssh -i ~/.ssh/deploy_key \
             -o "ProxyCommand=cloudflared access ssh --hostname %h --id $CF_CLIENT_ID --secret $CF_CLIENT_SECRET" \
-            ${{ secrets.HOMELAB_USER }}@${{ secrets.HOMELAB_HOST }} \
-            "cd /opt/DnBoxes && git pull origin main && docker compose up -d --build"
+            ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} \
+            "cd /your/project/directory && git pull origin main && docker compose up -d --build"
 ```
 
 The first step installs `cloudflared` on the Actions runner so it's available as an SSH proxy. The second step writes the private key and known hosts entry from repository secrets to the runner's SSH config. The third step SSHes into the homelab through the tunnel using the Cloudflare service token credentials, pulls the latest code, and lets Docker Compose handle the rest.
@@ -94,7 +92,7 @@ Because the entire application is defined in a single `docker-compose.yml`, the 
 
 ## Why Cloudflare Tunnel
 
-The main reason I went with Cloudflare Tunnel over something like portforwarding is because I didn't want to open port 22 on my home network. Even with key-only SSH and fail2ban, an exposed SSH port on a residential IP is a constant target for automated scanners. Cloudflare Tunnel avoids that entirely. The homelab only makes outbound connections, so there's nothing to scan or brute-force from the outside.
+The main reason I went with Cloudflare Tunnel was because I did not want to open ports on my home network. Cloudflare Tunnel avoids that entirely. The homelab only makes outbound connections, so there's nothing to scan or brute-force from the outside.
 
 ## What's Next
 
