@@ -4,7 +4,7 @@ import "../styles/global.css";
 import BlogPost from "../components/BlogPost.astro";
 
 const allPosts = Object.values(
-  import.meta.glob("./posts/*.mdx", { eager: true }),
+  import.meta.glob("./blogs/*.mdx", { eager: true }),
 );
 
 const pageTitle = "Blog";
