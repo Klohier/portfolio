@@ -14,12 +14,27 @@ const pageTitle = "Blog";
   <section>
     <h1>What I'm Up To</h1>
 
-    <ul>
+    <div class="posts">
       {
         allPosts.map((post: any) => (
-          <BlogPost url={post.url} title={post.frontmatter.title} />
+          <BlogPost
+            url={post.url}
+            title={post.frontmatter.title}
+            image={post.frontmatter.image}
+            description={post.frontmatter.description}
+            pubDate={post.frontmatter.pubDate}
+          />
         ))
       }
-    </ul>
+    </div>
+
+    <style>
+      .posts {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+      }
+    </style>
   </section>
 </BaseLayout>

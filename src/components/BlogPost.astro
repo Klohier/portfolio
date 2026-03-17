@@ -1,5 +1,65 @@
 ---
-const { title, url } = Astro.props;
+const { title, url, image, description, pubDate } = Astro.props;
 ---
 
-<li><a href={url}>{title}</a></li>
+<a href={url} class="post-card">
+  {image && <img src={image.url} alt={image.alt} class="post-thumbnail" />}
+  <div class="post-info">
+    <h2 class="post-title">{title}</h2>
+    {pubDate && <time class="post-date">{new Date(pubDate).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</time>}
+    {description && <p class="post-description">{description}</p>}
+  </div>
+</a>
+
+<style>
+  .post-card {
+    display: flex;
+    flex-direction: row;
+    text-decoration: none;
+    color: var(--text-color);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+
+  .post-card:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .post-thumbnail {
+    width: 200px;
+    min-width: 200px;
+    height: 140px;
+    object-fit: cover;
+  }
+
+  .post-info {
+    padding: 1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .post-title {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.2rem;
+    color: var(--accent-color);
+  }
+
+  .post-date {
+    font-size: 0.8rem;
+    opacity: 0.6;
+    margin-bottom: 0.4rem;
+    display: block;
+  }
+
+  .post-description {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    line-height: 1.5;
+  }
+</style>
