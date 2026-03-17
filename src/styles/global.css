@@ -235,6 +235,7 @@ section {
   padding: 1rem;
   max-width: 80ch;
 }
+
 /* Navigation styles */
 
 .menu {
@@ -260,6 +261,26 @@ section {
   .menu {
     display: none;
   }
+}
+
+/* Link styles */
+a {
+  color: var(--primary-color);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 3px;
+  transition:
+    color 0.2s ease,
+    text-decoration-color 0.2s ease;
+}
+
+a:hover {
+  color: #9090ff;
+  text-decoration-color: #9090ff;
+}
+
+a:visited {
+  color: #a78bfa;
 }
 
 /* Variables */
