@@ -13,6 +13,7 @@ const { title, url, image, description, pubDate } = Astro.props;
             year: "numeric",
             month: "long",
             day: "numeric",
+            timeZone: "UTC",
           })}
         </time>
       )
@@ -82,7 +83,7 @@ const { title, url, image, description, pubDate } = Astro.props;
     .post-thumbnail {
       width: 200px;
       min-width: 200px;
-      height: 140px;
+      height: auto;
     }
   }
 </style>
