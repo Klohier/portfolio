@@ -3,6 +3,8 @@ import { defineConfig } from "astro/config";
 
 import mdx from "@astrojs/mdx";
 
+import sitemap from "@astrojs/sitemap";
+
 // https://astro.build/config
 export default defineConfig({
   devToolbar: { enabled: false },
@@ -10,6 +12,6 @@ export default defineConfig({
   image: {
     responsiveStyles: true,
   },
-
-  integrations: [mdx()],
+  site: "https://www.keijilohier.com",
+  integrations: [mdx(), sitemap()],
 });
