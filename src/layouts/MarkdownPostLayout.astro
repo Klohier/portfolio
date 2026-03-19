@@ -11,7 +11,7 @@ const formattedDate = date.toLocaleDateString("en-US", {
 });
 ---
 
-<BaseLayout pageTitle={frontmatter.title}>
+<BaseLayout pageTitle={frontmatter.title} description={frontmatter.description}>
   <article>
     <header class="post-header">
       <a href="/blogs" class="back-link">← Back to Blog</a>
