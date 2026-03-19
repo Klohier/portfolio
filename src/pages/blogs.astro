@@ -8,9 +8,29 @@ const allPosts = Object.values(
 );
 
 const pageTitle = "Blog";
+
+const siteUrl = "https://www.keijilohier.com";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: pageTitle,
+  url: `${siteUrl}/blogs`,
+  hasPart: allPosts.map((post: any) => ({
+    "@type": "BlogPosting",
+    headline: post.frontmatter.title,
+    description: post.frontmatter.description,
+    datePublished: post.frontmatter.pubDate,
+    url: `${siteUrl}${post.url}`,
+    ...(post.frontmatter.image?.url && {
+      image: `${siteUrl}${post.frontmatter.image.url}`,
+    }),
+  })),
+};
 ---
 
 <BaseLayout pageTitle={pageTitle}>
+  <script type="application/ld+json" is:inline slot="head" set:html={JSON.stringify(jsonLd)} />
   <section>
     <h1>What I'm Up To</h1>
 
