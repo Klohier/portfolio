@@ -9,9 +9,9 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.3.13",
+    "@astrojs/mdx": "^5.0.2",
     "@astrojs/sitemap": "^3.7.1",
-    "astro": "^5.16.8",
+    "astro": "^6.0.7",
     "gsap": "^3.14.2"
   }
 }
