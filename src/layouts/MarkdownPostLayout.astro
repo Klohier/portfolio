@@ -9,9 +9,36 @@ const formattedDate = date.toLocaleDateString("en-US", {
   day: "numeric",
   timeZone: "UTC",
 });
+
+const siteUrl = "https://www.keijilohier.com";
+const postUrl = `${siteUrl}${Astro.url.pathname}`;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: frontmatter.title,
+  description: frontmatter.description,
+  author: {
+    "@type": "Person",
+    name: frontmatter.author,
+  },
+  datePublished: frontmatter.pubDate,
+  url: postUrl,
+  ...(frontmatter.image?.url && {
+    image: `${siteUrl}${frontmatter.image.url}`,
+  }),
+  ...(frontmatter.tags?.length > 0 && {
+    keywords: frontmatter.tags.join(", "),
+  }),
+};
 ---
 
 <BaseLayout pageTitle={frontmatter.title} description={frontmatter.description}>
+  <script
+    type="application/ld+json"
+    slot="head"
+    set:html={JSON.stringify(jsonLd)}
+  />
   <article>
     <header class="post-header">
       <a href="/blogs" class="back-link">← Back to Blog</a>
