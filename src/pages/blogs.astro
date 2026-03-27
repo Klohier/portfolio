@@ -1,10 +1,11 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import "../styles/global.css";
 import BlogPost from "../components/BlogPost.astro";
 
-const allPosts = Object.values(
-  import.meta.glob("./blogs/*.mdx", { eager: true }),
+const allPosts = (await getCollection("blogs")).sort(
+  (postA, postB) => postB.data.pubDate.getTime() - postA.data.pubDate.getTime(),
 );
 
 const pageTitle = "Blog";
@@ -16,18 +17,18 @@ const jsonLd = {
   "@type": "CollectionPage",
   name: pageTitle,
   url: `${siteUrl}/blogs`,
-  hasPart: allPosts.map((post: any) => ({
+  hasPart: allPosts.map((post) => ({
     "@type": "BlogPosting",
-    headline: post.frontmatter.title,
+    headline: post.data.title,
     author: {
       "@type": "Person",
-      name: post.frontmatter.author,
+      name: post.data.author,
     },
-    description: post.frontmatter.description,
-    datePublished: post.frontmatter.pubDate,
-    url: `${siteUrl}${post.url}`,
-    ...(post.frontmatter.image?.url && {
-      image: `${siteUrl}${post.frontmatter.image.url}`,
+    description: post.data.description,
+    datePublished: post.data.pubDate,
+    url: `${siteUrl}/blogs/${post.id}`,
+    ...(post.data.image?.url && {
+      image: `${siteUrl}${post.data.image.url}`,
     }),
   })),
 };
@@ -45,13 +46,13 @@ const jsonLd = {
 
     <div class="posts">
       {
-        allPosts.map((post: any) => (
+        allPosts.map((post) => (
           <BlogPost
-            url={post.url}
-            title={post.frontmatter.title}
-            image={post.frontmatter.image}
-            description={post.frontmatter.description}
-            pubDate={post.frontmatter.pubDate}
+            url={`/blogs/${post.id}`}
+            title={post.data.title}
+            image={post.data.image}
+            description={post.data.description}
+            pubDate={post.data.pubDate}
           />
         ))
       }
