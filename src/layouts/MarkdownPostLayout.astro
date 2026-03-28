@@ -75,6 +75,23 @@ const jsonLd = {
     <div class="prose">
       <slot />
     </div>
+
+    <footer class="post-cta">
+      <p>Want to talk about this post? Reach out I'd love to hear from you.</p>
+      <div class="cta-links">
+        <a href="mailto:portfolio.uncut584@passmail.net">Email me</a>
+        <a
+          href="https://mastodon.social/@klohier"
+          rel="me noopener"
+          target="_blank">Mastodon</a
+        >
+        <a
+          href="https://bsky.app/profile/klohier.bsky.social"
+          rel="noopener"
+          target="_blank">Bluesky</a
+        >
+      </div>
+    </footer>
   </article>
 </BaseLayout>
 
@@ -201,5 +218,43 @@ const jsonLd = {
     padding: 0.25rem 0 0.25rem 1.25rem;
     opacity: 0.85;
     font-style: italic;
+  }
+
+  .post-cta {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+  }
+
+  .post-cta p {
+    font-size: 1rem;
+    opacity: 0.8;
+    margin-bottom: 1rem;
+  }
+
+  .cta-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .cta-links a {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    border: 1px solid rgba(99, 99, 250, 0.5);
+    border-radius: 999px;
+    font-size: 0.9rem;
+    color: #a5a5ff;
+    transition:
+      background 0.2s,
+      border-color 0.2s;
+  }
+
+  .cta-links a:hover {
+    background: rgba(99, 99, 250, 0.15);
+    border-color: rgba(99, 99, 250, 0.8);
+    text-decoration: none;
   }
 </style>
