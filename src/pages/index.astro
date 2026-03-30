@@ -165,16 +165,18 @@ const pageTitle = "Keiji Lohier - Portfolio";
   <div class="grid">
     <div class="hero-section">
       <Card class="h-card">
+        <a href="https://keijilohier.com" class="u-url u-uid" hidden></a>
         <div class="hero-content">
           <h1 class="p-name">Keiji Lohier</h1>
           <p class="sub">Full Stack Engineer</p>
           <Image
             src={heroImage}
             alt="Keiji Lohier"
-            layout="constrained"
+            width={200}
+            height={200}
             class="hero-image u-photo"
           />
-          <p>
+          <p class="p-note">
             Hey There! I'm Keiji, a developer passionate about building
             full-stack applications with a focus on backend architecture,
             distributed systems, and DevOps practices.
@@ -286,7 +288,7 @@ const pageTitle = "Keiji Lohier - Portfolio";
           <a
             href="https://github.com/klohier"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="me noreferrer"
           >
             <Card>
               <svg
@@ -313,7 +315,7 @@ const pageTitle = "Keiji Lohier - Portfolio";
           <a
             href="https://www.linkedin.com/in/keiji-lohier/"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="me noreferrer"
           >
             <Card>
               <Image

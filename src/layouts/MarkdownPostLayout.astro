@@ -41,6 +41,7 @@ const jsonLd = {
     set:html={JSON.stringify(jsonLd)}
   />
   <article class="h-entry">
+    <a href={postUrl} class="u-url" hidden></a>
     <header class="post-header">
       <a href="/blogs" class="back-link">← Back to Blog</a>
 
@@ -77,8 +78,8 @@ const jsonLd = {
       }
     </header>
 
-    <div class="prose">
-      <slot class="e-content" />
+    <div class="prose e-content">
+      <slot />
     </div>
 
     <footer class="post-cta">
