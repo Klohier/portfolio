@@ -1,8 +1,8 @@
 ---
-
+const { class: className } = Astro.props;
 ---
 
-<div class="card-wrapper">
+<div class={`card-wrapper ${className ?? ""}`}>
   <div class="card">
     <slot />
   </div>
