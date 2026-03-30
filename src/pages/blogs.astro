@@ -34,6 +34,15 @@ const jsonLd = {
 };
 ---
 
+<style>
+  .posts {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+</style>
+
 <BaseLayout pageTitle={pageTitle}>
   <script
     type="application/ld+json"
@@ -57,14 +66,5 @@ const jsonLd = {
         ))
       }
     </div>
-
-    <style>
-      .posts {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-        margin-top: 1.5rem;
-      }
-    </style>
   </section>
 </BaseLayout>
