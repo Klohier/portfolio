@@ -1,5 +1,6 @@
 ---
 const { frontmatter } = Astro.props;
+import { Image } from "astro:assets";
 import BaseLayout from "./BaseLayout.astro";
 
 const date = new Date(frontmatter.pubDate);
@@ -45,10 +46,12 @@ const jsonLd = {
 
       {
         frontmatter.image?.url && (
-          <img
+          <Image
             class="post-image"
             src={frontmatter.image.url}
             alt={frontmatter.image.alt}
+            width={1200}
+            height={630}
           />
         )
       }
@@ -57,7 +60,9 @@ const jsonLd = {
       <p class="description">{frontmatter.description}</p>
 
       <div class="meta">
-        <span class="date">{formattedDate}</span>
+        <time class="date" datetime={date.toISOString()}>
+          {formattedDate}
+        </time>
         <span class="author">by {frontmatter.author}</span>
       </div>
 
@@ -82,12 +87,12 @@ const jsonLd = {
         <a href="mailto:portfolio.uncut584@passmail.net">Email me</a>
         <a
           href="https://mastodon.social/@klohier"
-          rel="noopener"
+          rel="me noreferrer"
           target="_blank">Mastodon</a
         >
         <a
           href="https://bsky.app/profile/klohier.bsky.social"
-          rel="noopener"
+          rel="me noreferrer"
           target="_blank">Bluesky</a
         >
       </div>

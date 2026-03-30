@@ -164,15 +164,15 @@ const pageTitle = "Keiji Lohier - Portfolio";
 <BaseLayout pageTitle={pageTitle}>
   <div class="grid">
     <div class="hero-section">
-      <Card>
+      <Card class="h-card">
         <div class="hero-content">
-          <h1>Keiji Lohier</h1>
+          <h1 class="p-name">Keiji Lohier</h1>
           <p class="sub">Full Stack Engineer</p>
           <Image
             src={heroImage}
             alt="Keiji Lohier"
             layout="constrained"
-            class="hero-image"
+            class="hero-image u-photo"
           />
           <p>
             Hey There! I'm Keiji, a developer passionate about building
@@ -326,7 +326,7 @@ const pageTitle = "Keiji Lohier - Portfolio";
             </Card>
           </a>
 
-          <a href="mailto:portfolio.uncut584@passmail.net">
+          <a class="u-email" href="mailto:portfolio.uncut584@passmail.net">
             <Card>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
