@@ -23,7 +23,7 @@ const jsonLd = {
     "@type": "Person",
     name: frontmatter.author,
   },
-  datePublished: frontmatter.pubDate,
+  datePublished: date.toISOString(),
   url: postUrl,
   ...(frontmatter.image?.url && {
     image: `${siteUrl}${frontmatter.image.url}`,
