@@ -40,7 +40,7 @@ const jsonLd = {
     slot="head"
     set:html={JSON.stringify(jsonLd)}
   />
-  <article>
+  <article class="h-entry">
     <header class="post-header">
       <a href="/blogs" class="back-link">← Back to Blog</a>
 
@@ -56,14 +56,14 @@ const jsonLd = {
         )
       }
 
-      <h1>{frontmatter.title}</h1>
-      <p class="description">{frontmatter.description}</p>
+      <h1 class="p-name">{frontmatter.title}</h1>
+      <p class="p-summary description">{frontmatter.description}</p>
 
       <div class="meta">
-        <time class="date" datetime={date.toISOString()}>
+        <time class="date dt-published" datetime={date.toISOString()}>
           {formattedDate}
         </time>
-        <span class="author">by {frontmatter.author}</span>
+        <span class="author p-author h-card">by {frontmatter.author}</span>
       </div>
 
       {
@@ -78,7 +78,7 @@ const jsonLd = {
     </header>
 
     <div class="prose">
-      <slot />
+      <slot class="e-content" />
     </div>
 
     <footer class="post-cta">
