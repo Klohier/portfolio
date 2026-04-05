@@ -5,6 +5,8 @@ import mdx from "@astrojs/mdx";
 
 import sitemap from "@astrojs/sitemap";
 
+import react from "@astrojs/react";
+
 // https://astro.build/config
 export default defineConfig({
   devToolbar: { enabled: false },
@@ -13,5 +15,5 @@ export default defineConfig({
     responsiveStyles: true,
   },
   site: "https://www.keijilohier.com",
-  integrations: [mdx(), sitemap()],
+  integrations: [mdx(), sitemap(), react()],
 });
