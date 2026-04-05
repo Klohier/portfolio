@@ -298,3 +298,19 @@ a:hover {
 a:visited {
   color: var(--link-visited-color);
 }
+
+.tag {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  padding: 0.25rem 0.5rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.3rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+}
+
+.tags {
+  margin-bottom: 1rem;
+  padding-left: 0rem;
+}
