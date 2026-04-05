@@ -2,27 +2,18 @@
 const { class: className } = Astro.props;
 ---
 
-<div class={`card-wrapper ${className ?? ""}`}>
-  <div class="card">
-    <slot />
-  </div>
+<div class={`card ${className ?? ""}`}>
+  <slot />
 </div>
 
 <style>
-  .card-wrapper {
-    opacity: 0;
-    transform: translateY(20px);
-    width: 100%;
-    height: 100%;
-  }
-
   .card {
     background-color: var(--card-background-color);
     border: var(--blue-6) 1px solid;
     border-radius: 8px;
     padding: 1rem;
     box-shadow: 0 4px 6px var(--slate-1);
-    transition: all 0.3s ease;
+    transition: box-shadow 0.3s ease;
     position: relative;
     height: 100%;
   }
@@ -37,32 +28,4 @@ const { class: className } = Astro.props;
       0 0 20px var(--blue-9),
       0 0 40px var(--blue-9);
   }
-
-  @keyframes gradientShift {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
 </style>
-
-<script>
-  import { gsap } from "gsap";
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const cardWrappers = document.querySelectorAll(".card-wrapper");
-
-    gsap.to(cardWrappers, {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      stagger: 0.1,
-      ease: "power2.out",
-    });
-  });
-</script>

@@ -12,6 +12,22 @@ import Card from "../components/Card.astro";
 const pageTitle = "Keiji Lohier - Portfolio";
 ---
 
+<script>
+  import { gsap } from "gsap";
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const gridItems = document.querySelectorAll(".grid > *");
+
+    gsap.from(gridItems, {
+      opacity: 0,
+      y: 20,
+      duration: 0.8,
+      stagger: 0.1,
+      ease: "power2.out",
+    });
+  });
+</script>
+
 <style>
   .button-group {
     display: flex;
