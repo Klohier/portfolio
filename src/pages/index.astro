@@ -2,8 +2,8 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
 import heroImage from "../assets/images/me.jpeg";
-import dnbImage from "../assets/images/gameplay.jpeg";
-import roulette from "../assets/images/image.png";
+import dnbImage from "../assets/images/dotsandboxes.png";
+import roulette from "../assets/images/edhswipe.png";
 import Envelope from "../assets/icons/envelope-closed.svg";
 import GithubLogo from "../assets/icons/github-logo.svg";
 import LinkedinLogo from "../assets/icons/linkedin-logo.svg";
@@ -114,6 +114,15 @@ const pageTitle = "Keiji Lohier - Portfolio";
     margin-bottom: 0.3rem;
     border-radius: 0.25rem;
     font-size: 0.875rem;
+  }
+
+  .regular-card :global(img) {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    border-radius: 4px;
+    margin-bottom: 1rem;
   }
 
   @media (min-width: 768px) {
@@ -234,8 +243,7 @@ const pageTitle = "Keiji Lohier - Portfolio";
       <Image
         src={dnbImage}
         alt="gameplay image of dots and boxes."
-        width={320}
-        height={190}
+        layout="constrained"
       />
       <h2>Dots and Boxes</h2>
       <div class="tags">
@@ -258,8 +266,7 @@ const pageTitle = "Keiji Lohier - Portfolio";
       <Image
         src={roulette}
         alt="Image of Magic Commander Card."
-        width={320}
-        height={190}
+        layout="constrained"
       />
       <h2>EDH Swipe</h2>
       <div class="tags">
