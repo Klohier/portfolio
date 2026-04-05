@@ -1,8 +1,7 @@
 ---
 title: Dots and Boxes Online
 author: Keiji Lohier
-description: "A real-time multiplayer platform for playing Dots and Boxes, featuring WebSocket-based gameplay, lobby system, and live chat. Built as a learning project to explore distributed systems architecture, event sourcing patterns, and production deployment strategies.
-"
+description: "A real-time multiplayer platform for playing Dots and Boxes, featuring WebSocket-based gameplay, lobby system, and live chat. Built as a learning project to explore distributed systems architecture, event sourcing patterns, and production deployment strategies."
 image:
   url: "/dotsandboxes.png"
   alt: "Gameplay image of Dots and Boxes."
@@ -21,49 +20,18 @@ I created this project to practice implementing a distributed system with real-t
 
 ## Tech Stack
 
-**Backend**
-
-- Go with Echo framework
-- PostgreSQL for persistence
-- Redis as event bus for real-time updates
-- WebSocket protocol for bidirectional communication
-- Domain Driven Design
-- Event Sourcing
-
-**Frontend**
-
-- React with TypeScript
-- Real-time UI updates via WebSocket
-- Tanstack Query
-- Tanstack Router
-- Zod Validation
-- React Form
-- Sonner
-
-**Infrastructure**
-
-- Docker containerization
-- Caddy reverse proxy
-- Proxmox VM
-- GitHub Actions CI/CD
-- Cloudflare Tunnel
+| Category           | Technologies                                                                     |
+| ------------------ | -------------------------------------------------------------------------------- |
+| **Backend**        | Go (Echo), PostgreSQL, Redis, WebSockets, DDD, Event Sourcing                    |
+| **Frontend**       | React, TypeScript, TanStack Query, TanStack Router, Zod, React Hook Form, Sonner |
+| **Infrastructure** | Docker, Caddy, Proxmox, GitHub Actions, Cloudflare Tunnel                        |
 
 ## Key Features
 
-### Real-Time Multiplayer
-
-- WebSocket-based game state synchronization
-- Lobby system
-- In game chat functionality
-- Play against other players or a basic bot opponent
-
-### Architecture Highlights
-
-- Event Bus
-- Proper separation of concerns using DDD principles
-- Auth system
-- Dependency Injection
-- Event Sourcing
+| Feature                   | Details                                                                                  |
+| ------------------------- | ---------------------------------------------------------------------------------------- |
+| **Real-Time Multiplayer** | WebSocket game state sync, lobby system, in-game chat, bot opponent                      |
+| **Architecture**          | Event bus, DDD separation of concerns, auth system, dependency injection, event sourcing |
 
 ## Development Journey
 
@@ -83,7 +51,7 @@ Containerized the application using Docker with Docker Compose orchestration. Th
 
 ### CI/CD with GitHub Actions
 
-Every push to `main` triggers an automated deployment pipeline. The workflow SSHes into my Proxmox homelab VM, pulls the latest code, and rebuilds the containers with `docker compose up -d --build` , with zero manual steps required.
+Every push to `main` triggers an automated deployment pipeline. The workflow SSHes into my Proxmox homelab VM, pulls the latest code, and rebuilds the containers with `docker compose up -d --build`, with zero manual steps required.
 
 The interesting challenge here was that my homelab isn't publicly exposed. Rather than opening an SSH port to the internet, the pipeline connects through a Cloudflare Tunnel using `cloudflared` as an SSH proxy command. This keeps the server completely off the public internet while still allowing GitHub Actions' runners to reach it securely using short-lived Cloudflare Access service tokens stored as repository secrets.
 
@@ -93,7 +61,8 @@ I structured the codebase around single responsibility principles, ensuring each
 
 ### Event Sourcing for Game Replays
 
-I reached for event sourcing specifically to make game replays easy to implement. Rather than storing just the current game state, every action is appended to an immutable event log , so replaying a game is as simple as reading the log back from the beginning. It worked exactly as I hoped, and the implementation was surprisingly straightforward once the event schema was in place.
+I reached for event sourcing specifically to make game replays easy to implement. Rather than storing just the current game state, every action is appended to an immutable event log, so replaying a game is as simple as reading the log back from the beginning. It worked exactly as I hoped, and the implementation was surprisingly straightforward once the event schema was in place.
+
 What I didn't anticipate was the tradeoff that comes with immutability. When a guest account is upgraded to a registered user, the historical event log still references the old guest identity, because those events were written at a point in time and don't retroactively update. It's a small bug but it was a good reminder that you still have to think carefully about identity changes when your event log is immutable.
 
 ## Future Enhancements

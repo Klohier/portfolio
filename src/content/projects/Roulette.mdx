@@ -1,8 +1,7 @@
 ---
 title: EDH Swipe
 author: Keiji Lohier
-description: "A simple Tinder-style interface for discovering Magic: The Gathering commanders. Click yes to save commanders you like, click no to see the next one, and view your saved collection in a separate tab.
-"
+description: "A simple Tinder-style interface for discovering Magic: The Gathering commanders. Click yes to save commanders you like, click no to see the next one, and view your saved collection in a separate tab."
 image:
   url: "/edhswipe.png"
   alt: "EDH Swipe card interface."
@@ -17,51 +16,41 @@ import Button from "../../components/Button.astro";
 
 ## Overview
 
-I created this project to make finding commanders for new EDH decks less overwhelming. Instead of scrolling through endless lists, you're presented with one card at a time and make a quick decision. You can than look at this list later to help you figure out what commander you want to build out next
+I created this project to make finding commanders for new EDH decks less overwhelming. Instead of scrolling through endless lists, you're presented with one card at a time and make a quick decision. You can then look at this list later to help you figure out what commander you want to build out next.
 
 ## Tech Stack
 
-**Frontend**
-
-- React with TypeScript
-- Scryfall API for card data
-- Local storage for saved commanders
-- GSAP
+| Category     | Technologies            |
+| ------------ | ----------------------- |
+| **Frontend** | React, TypeScript, GSAP |
+| **Data**     | Scryfall REST API       |
+| **Storage**  | Browser Local Storage   |
 
 ## Key Features
 
-### Card-by-Card Discovery
-
-- Simple yes/no buttons to make quick decisions
-- One commander displayed at a time
-- Automatic progression to next card
-- Card images from Scryfall
-
-### Saved Collection
-
-- Separate tab to view all saved commanders
-- Remove cards from your collection
-- Persistent storage across sessions
-- See card on edh rec for deck ideas
+| Feature              | Details                                                                          |
+| -------------------- | -------------------------------------------------------------------------------- |
+| **Card Discovery**   | One commander at a time, yes/no decision, auto-progression, Scryfall card images |
+| **Saved Collection** | View saved commanders, remove cards, persistent across sessions, EDHRec links    |
 
 ## Development Journey
 
-This was a focused project to practice working with external APIs and managing simple state. Also practiced using gsap animations for the card swiping feature. The main challenges were:
+This was a focused project to practice working with external APIs and managing simple state. Also practiced using GSAP animations for the card swiping feature. The main challenges were:
 
 - **API Integration**: Learning to work with Scryfall's REST API and understanding their data structure
 - **State Management**: Keeping track of seen cards and saved commanders
 - **Local Storage**: Persisting the collection without a backend
-- **GSAP Animations**: Learning to use the useGSAP hook, as well as how Draggable works.
+- **GSAP Animations**: Learning to use the useGSAP hook, as well as how Draggable works
 
 ## What I Learned
 
 ### Working with External APIs
 
-I learned how to read API documentation, handle JSON responses, and structure my code to work with external data sources. Including the importance of having fallbacks for when external api does not include what you expected.
+I learned how to read API documentation, handle JSON responses, and structure my code to work with external data sources — including the importance of having fallbacks for when an external API doesn't include what you expected.
 
 ### GSAP Animations
 
-I learned how to interact with the gsap framwork to add animations to the site while using their draggable abstraction in order to implement the card swiping feature. Using GSAP saved alot of time to finish up the project.
+I learned how to interact with the GSAP framework to add animations while using their Draggable abstraction to implement the card swiping feature. Using GSAP saved a lot of time finishing up the project.
 
 ### Simple State Management
 
@@ -69,5 +58,5 @@ Managing which cards have been seen and which are saved taught me practical stat
 
 ## Future Enhancements
 
-- Add ability to export saved commanders as a list
-- Accounts to save session across devices
+- Export saved commanders as a shareable list
+- User accounts to persist sessions across devices

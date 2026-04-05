@@ -375,3 +375,26 @@ a:visited {
   opacity: 0.85;
   font-style: italic;
 }
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.25rem;
+  font-size: 0.95rem;
+}
+
+.prose th,
+.prose td {
+  padding: 0.6rem 1rem;
+  text-align: left;
+  border: 1px solid var(--blue-7);
+}
+
+.prose th {
+  background: var(--blue-3);
+  font-weight: 600;
+}
+
+.prose tr:nth-child(even) {
+  background: var(--blue-2);
+}
