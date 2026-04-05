@@ -1,12 +1,25 @@
 ---
-const { platform, username } = Astro.props;
+import Card from "./Card.astro";
+
+interface Props {
+  href: string;
+  label: string;
+  rel?: string;
+}
+
+const { href, label, rel = "me noreferrer" } = Astro.props;
 ---
 
-<a href={`https://www.${platform}.com/${username}`}>{platform}</a>
+<a href={href} target="_blank" rel={rel} aria-label={label}>
+  <Card variant="social">
+    <slot />
+  </Card>
+</a>
+
 <style>
   a {
-    padding: 0.5rem 1rem;
-    color: var(--text-color);
     text-decoration: none;
+    display: block;
+    flex: 1;
   }
 </style>

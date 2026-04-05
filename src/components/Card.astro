@@ -1,8 +1,8 @@
 ---
-const { class: className } = Astro.props;
+const { class: className, variant } = Astro.props;
 ---
 
-<div class={`card ${className ?? ""}`}>
+<div class:list={["card", variant && `card--${variant}`, className]}>
   <slot />
 </div>
 
@@ -27,5 +27,22 @@ const { class: className } = Astro.props;
       0 4px 6px var(--blue-9),
       0 0 20px var(--blue-9),
       0 0 40px var(--blue-9);
+  }
+
+  .card--social {
+    max-width: 55%;
+    margin: auto;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1;
+  }
+
+  .card--social :global(img),
+  .card--social :global(svg) {
+    width: 50%;
+    height: 50%;
+    object-fit: contain;
   }
 </style>
