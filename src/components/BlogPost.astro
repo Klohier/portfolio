@@ -28,8 +28,8 @@ const { title, url, image, description, pubDate } = Astro.props;
     flex-direction: column;
     text-decoration: none;
     color: var(--text-color);
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--card-background-color);
+    border: 1px solid var(--blue-6);
     border-radius: 8px;
     overflow: hidden;
     transition:
@@ -39,7 +39,7 @@ const { title, url, image, description, pubDate } = Astro.props;
 
   .post-card:hover {
     transform: translateY(-3px);
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--blue-4);
   }
 
   .post-thumbnail {
@@ -58,7 +58,6 @@ const { title, url, image, description, pubDate } = Astro.props;
   .post-title {
     margin: 0 0 0.5rem 0;
     font-size: 1.2rem;
-    color: var(--accent-color);
   }
 
   .post-date {

@@ -1,3 +1,18 @@
+@import "@radix-ui/colors/blue.css";
+@import "@radix-ui/colors/blue-dark.css";
+@import "@radix-ui/colors/slate-dark.css";
+/* Variables */
+
+.dark {
+  --primary-color: var(--blue-9);
+  --secondary-color: var(--blue-11);
+  --card-background-color: var(--blue-3);
+  --background-color: var(--blue-1);
+  --text-color: var(--slate-12);
+  --link-hover-color: var(--blue-11);
+  --link-visited-color: var(--blue-10);
+}
+
 /*! modern-normalize v3.0.1 | MIT License | https://github.com/sindresorhus/modern-normalize */
 
 /*
@@ -282,21 +297,4 @@ a:hover {
 
 a:visited {
   color: var(--link-visited-color);
-}
-
-/* Variables */
-:root {
-  --primary-color: #9191ff;
-  --secondary-color: #0d0950;
-  --accent-color: #ffffff;
-  --background-color: linear-gradient(
-    to bottom,
-    #001a2e 0%,
-    #003049 50%,
-    #00496b 100%
-  );
-  --text-color: #ffffff;
-  --link-hover-color: #b3b3ff;
-  --link-visited-color: #c4b5fd;
-  --background-start-color: #001a2e;
 }

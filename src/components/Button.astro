@@ -6,9 +6,9 @@ const { href, name } = Astro.props;
 
 <style>
   a {
-    background: linear-gradient(135deg, #003d5c 0%, #00496b 100%);
-    color: white;
-    border: 1px solid rgba(78, 205, 196, 0.3);
+    background-color: var(--blue-9);
+    color: var(--text-color);
+    border: 1px solid var(--blue-7);
     border-radius: 0.5rem;
     text-decoration: none;
     padding: 0.5rem 1.25rem;
@@ -19,11 +19,11 @@ const { href, name } = Astro.props;
 
   a:hover,
   a:focus {
-    background: linear-gradient(135deg, #00496b 0%, #005a82 100%);
-    border-color: rgba(78, 205, 196, 0.6);
+    background-color: var(--blue-10);
+    border-color: var(--blue-8);
     box-shadow:
-      0 4px 12px rgba(0, 0, 0, 0.2),
-      0 0 20px rgba(78, 205, 196, 0.3);
+      0 4px 12px var(--slate-1),
+      0 0 20px var(--blue-8);
     transform: translateY(-2px);
   }
 
