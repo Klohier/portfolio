@@ -1,6 +1,7 @@
 ---
 const { frontmatter } = Astro.props;
 import { Image } from "astro:assets";
+import Footer from "../components/Footer.astro";
 import BaseLayout from "./BaseLayout.astro";
 
 const date = new Date(frontmatter.pubDate);
@@ -82,22 +83,7 @@ const jsonLd = {
       <slot />
     </div>
 
-    <footer class="post-cta">
-      <p>Want to talk about this post? Reach out I'd love to hear from you.</p>
-      <div class="cta-links">
-        <a href="mailto:portfolio.uncut584@passmail.net">Email me</a>
-        <a
-          href="https://mastodon.social/@klohier"
-          rel="me noreferrer"
-          target="_blank">Mastodon</a
-        >
-        <a
-          href="https://bsky.app/profile/klohier.bsky.social"
-          rel="me noreferrer"
-          target="_blank">Bluesky</a
-        >
-      </div>
-    </footer>
+    <Footer />
   </article>
 </BaseLayout>
 
@@ -149,43 +135,5 @@ const jsonLd = {
     font-size: 0.875rem;
     opacity: 0.65;
     margin-bottom: 1rem;
-  }
-
-  .post-cta {
-    margin-top: 3rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--blue-7);
-    text-align: center;
-  }
-
-  .post-cta p {
-    font-size: 1rem;
-    opacity: 0.8;
-    margin-bottom: 1rem;
-  }
-
-  .cta-links {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-
-  .cta-links a {
-    display: inline-block;
-    padding: 0.4rem 1rem;
-    border: 1px solid var(--blue-7);
-    border-radius: 999px;
-    font-size: 0.9rem;
-    color: var(--text-color);
-    transition:
-      background 0.2s,
-      border-color 0.2s;
-  }
-
-  .cta-links a:hover {
-    background: var(--blue-9);
-    border-color: var(--blue-8);
-    text-decoration: none;
   }
 </style>
