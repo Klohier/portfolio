@@ -1,0 +1,71 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const pageTitle = "Now - Keiji Lohier";
+---
+
+<style>
+  article {
+    max-width: 65ch;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .updated {
+    font-size: 0.875rem;
+    color: var(--secondary-text-color);
+    margin-bottom: 2rem;
+  }
+
+  h2 {
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--secondary-text-color);
+    margin: 2rem 0 0.5rem;
+  }
+</style>
+
+<BaseLayout pageTitle={pageTitle}>
+  <article class="prose">
+    <h1>Now</h1>
+    <p class="updated">Last updated: April 11th, 2026</p>
+
+    <p>
+      This is a <a
+        href="https://nownownow.com/about"
+        target="_blank"
+        rel="noopener noreferrer">/now page</a
+      > inspired by Derek Sivers. A snapshot of what I'm focused on at this point
+      in my life.
+    </p>
+
+    <h2>Working On</h2>
+    <ul>
+      <li>Improving my writing by doing blog posts</li>
+      <li>
+        Deepening my knowledge of distributed systems and backend architecture
+      </li>
+      <li>Exploring Web Components</li>
+    </ul>
+
+    <h2>Currently Listening to</h2>
+    <ul>
+      <li>Strictly 4 The Scythe - Denzel Curry</li>
+      <li>Maggot Brain - Funkadelic</li>
+      <li>Take Care in Your Dreaming - The Avalanches</li>
+    </ul>
+
+    <h2>Reading</h2>
+    <ul>
+      <li>Apollo 13 - Jim Lovell, Jeffrey Kluger</li>
+    </ul>
+
+    <h2>Outside of Code</h2>
+    <ul>
+      <li>Playing Magic: The Gathering</li>
+      <li>Experimenting with 3d modeling</li>
+      <li>Street photography</li>
+    </ul>
+  </article>
+</BaseLayout>
