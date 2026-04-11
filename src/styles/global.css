@@ -398,3 +398,17 @@ a:visited {
 .prose tr:nth-child(even) {
   background: var(--blue-2);
 }
+
+.prose img {
+  display: block;
+  margin: 0 auto;
+}
+
+.prose figcaption {
+  text-align: center;
+  font-size: 0.875rem;
+  opacity: 0.65;
+  margin-top: 0.5rem;
+  margin-bottom: 1.25rem;
+  font-style: italic;
+}
