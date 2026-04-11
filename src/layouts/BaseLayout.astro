@@ -2,7 +2,11 @@
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/global.css";
-const { pageTitle, description } = Astro.props;
+const { pageTitle, description, image } = Astro.props;
+
+const siteUrl = "https://www.keijilohier.com";
+const ogImage = image ? `${siteUrl}${image}` : `${siteUrl}/K.png`;
+const ogDescription = description ?? "Full Stack Engineer";
 ---
 
 <html lang="en" class="dark">
@@ -24,6 +28,17 @@ const { pageTitle, description } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     {description && <meta name="description" content={description} />}
+    <!-- Open Graph -->
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={ogDescription} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={`${siteUrl}${Astro.url.pathname}`} />
+    <meta property="og:type" content="website" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={ogDescription} />
+    <meta name="twitter:image" content={ogImage} />
     <title>{pageTitle}</title>
     <slot name="head" />
   </head>
