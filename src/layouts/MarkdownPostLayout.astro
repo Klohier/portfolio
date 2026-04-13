@@ -37,6 +37,7 @@ const jsonLd = {
 
 <BaseLayout pageTitle={frontmatter.title} description={frontmatter.description} image={frontmatter.image?.url}>
   <script
+    is:inline
     type="application/ld+json"
     slot="head"
     set:html={JSON.stringify(jsonLd)}
@@ -54,12 +55,13 @@ const jsonLd = {
             alt={frontmatter.image.alt}
             width={1200}
             height={630}
+            transition:name={`blog-image-${Astro.url.pathname}`}
           />
         )
       }
 
-      <h1 class="p-name">{frontmatter.title}</h1>
-      <p class="p-summary description">{frontmatter.description}</p>
+      <h1 class="p-name" transition:name={`blog-title-${Astro.url.pathname}`}>{frontmatter.title}</h1>
+      <p class="p-summary description" transition:name={`blog-desc-${Astro.url.pathname}`}>{frontmatter.description}</p>
 
       <div class="meta">
         <time class="date dt-published" datetime={date.toISOString()}>

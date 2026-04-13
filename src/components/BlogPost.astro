@@ -3,9 +3,9 @@ const { title, url, image, description, pubDate } = Astro.props;
 ---
 
 <a href={url} class="post-card">
-  {image && <img src={image.url} alt={image.alt} class="post-thumbnail" />}
+  {image && <img src={image.url} alt={image.alt} class="post-thumbnail" transition:name={`blog-image-${url}`} />}
   <div class="post-info">
-    <h2 class="post-title">{title}</h2>
+    <h2 class="post-title" transition:name={`blog-title-${url}`}>{title}</h2>
     {
       pubDate && (
         <time class="post-date">
@@ -18,7 +18,7 @@ const { title, url, image, description, pubDate } = Astro.props;
         </time>
       )
     }
-    {description && <p class="post-description">{description}</p>}
+    {description && <p class="post-description" transition:name={`blog-desc-${url}`}>{description}</p>}
   </div>
 </a>
 
