@@ -24,9 +24,28 @@ const pageTitle = "Now - Keiji Lohier";
     color: var(--secondary-text-color);
     margin: 2rem 0 0.5rem;
   }
+
+  .vinyl-shelf {
+    display: flex;
+    gap: 2rem;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 1rem 0;
+  }
+
+  @media (max-width: 600px) {
+    .vinyl-shelf {
+      justify-content: center;
+      gap: 0.5rem;
+      --vinyl-size: 28vw;
+    }
+  }
 </style>
 
 <BaseLayout pageTitle={pageTitle}>
+  <script>
+    import "../components/record.ts";
+  </script>
   <article class="prose">
     <h1>Now</h1>
     <p class="updated">Last updated: April 11th, 2026</p>
@@ -50,11 +69,29 @@ const pageTitle = "Now - Keiji Lohier";
     </ul>
 
     <h2>Currently Listening to</h2>
-    <ul>
-      <li>Strictly 4 The Scythe - Denzel Curry</li>
-      <li>Maggot Brain - Funkadelic</li>
-      <li>Take Care in Your Dreaming - The Avalanches</li>
-    </ul>
+    <div class="vinyl-shelf">
+      <vinyl-record
+        src="/strictly4.jpeg"
+        title="Strictly 4 The Scythe"
+        artist="Denzel Curry"
+        spinning
+        speed="2"
+        size="200"></vinyl-record>
+      <vinyl-record
+        src="/maggot.jpeg"
+        title="Maggot Brain"
+        artist="Funkadelic"
+        spinning
+        speed="2"
+        size="200"></vinyl-record>
+      <vinyl-record
+        src="/dreaming.jpeg"
+        title="Take Care in Your Dreaming"
+        artist="The Avalanches"
+        spinning
+        speed="2"
+        size="200"></vinyl-record>
+    </div>
 
     <h2>Reading</h2>
     <ul>
