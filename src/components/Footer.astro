@@ -1,5 +1,5 @@
 ---
-
+const { postUrl } = Astro.props;
 ---
 
 <style>
@@ -41,6 +41,10 @@
     text-decoration: none;
   }
 </style>
+
+{postUrl && <wm-mentions post-url={postUrl} />}
+
+<script>import "./webmentions.ts"</script>
 
 <footer class="post-cta">
   <p>Want to talk about this post? Reach out I'd love to hear from you.</p>
