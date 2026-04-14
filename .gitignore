@@ -24,3 +24,7 @@ pnpm-debug.log*
 .idea/
 
 .VSCodeCounter
+
+# wrangler
+.wrangler/
+wrangler.jsonc
