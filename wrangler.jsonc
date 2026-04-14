@@ -10,5 +10,5 @@
   "observability": {
     "enabled": true,
   },
-  "routes": { "pattern": "keijilohier.com", "custom_domain": true },
+  "routes": [{ "pattern": "keijilohier.com", "custom_domain": true }],
 }
