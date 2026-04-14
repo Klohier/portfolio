@@ -1,11 +1,11 @@
 ---
-const { postUrl } = Astro.props;
 ---
 
 <style>
   .post-cta {
     margin-top: 3rem;
     padding-top: 2rem;
+    padding-bottom: 3rem;
     border-top: 1px solid var(--blue-7);
     text-align: center;
   }
@@ -40,14 +40,16 @@ const { postUrl } = Astro.props;
     border-color: var(--blue-8);
     text-decoration: none;
   }
+
+  .webring {
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    opacity: 0.7;
+  }
 </style>
 
-{postUrl && <wm-mentions post-url={postUrl} />}
-
-<script>import "./webmentions.ts"</script>
-
 <footer class="post-cta">
-  <p>Want to talk about this post? Reach out I'd love to hear from you.</p>
+  <p>Want to get in touch? I'd love to hear from you.</p>
   <div class="cta-links">
     <a href="mailto:portfolio.uncut584@passmail.net">Email me</a>
     <a
@@ -60,5 +62,10 @@ const { postUrl } = Astro.props;
       rel="me noreferrer"
       target="_blank">Bluesky</a
     >
+  </div>
+  <div class="webring">
+    <a href="https://xn--sr8hvo.ws/previous">←</a>
+    An <a href="https://xn--sr8hvo.ws">IndieWeb Webring</a>
+    <a href="https://xn--sr8hvo.ws/next">→</a>
   </div>
 </footer>

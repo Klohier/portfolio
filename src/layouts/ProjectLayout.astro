@@ -1,6 +1,5 @@
 ---
 const { frontmatter } = Astro.props;
-import Footer from "../components/Footer.astro";
 import BaseLayout from "./BaseLayout.astro";
 import { Image } from "astro:assets";
 
@@ -85,7 +84,6 @@ const jsonLd = {
       <slot />
     </div>
 
-    <Footer />
   </article>
 </BaseLayout>
 

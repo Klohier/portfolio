@@ -1,7 +1,6 @@
 ---
 const { frontmatter } = Astro.props;
 import { Image } from "astro:assets";
-import Footer from "../components/Footer.astro";
 import BaseLayout from "./BaseLayout.astro";
 
 const date = new Date(frontmatter.pubDate);
@@ -85,8 +84,10 @@ const jsonLd = {
       <slot />
     </div>
 
-    <Footer postUrl={postUrl} />
+    <wm-mentions post-url={postUrl} />
   </article>
+
+  <script>import "../components/webmentions.ts"</script>
 </BaseLayout>
 
 <style>
