@@ -11,7 +11,7 @@ const formattedDate = date.toLocaleDateString("en-US", {
   timeZone: "UTC",
 });
 
-const siteUrl = "https://www.keijilohier.com";
+const siteUrl = "https://keijilohier.com";
 const postUrl = `${siteUrl}${Astro.url.pathname}`;
 
 const jsonLd = {
@@ -34,7 +34,11 @@ const jsonLd = {
 };
 ---
 
-<BaseLayout pageTitle={frontmatter.title} description={frontmatter.description} image={frontmatter.image?.url}>
+<BaseLayout
+  pageTitle={frontmatter.title}
+  description={frontmatter.description}
+  image={frontmatter.image?.url}
+>
   <script
     is:inline
     type="application/ld+json"
@@ -59,8 +63,15 @@ const jsonLd = {
         )
       }
 
-      <h1 class="p-name" transition:name={`blog-title-${Astro.url.pathname}`}>{frontmatter.title}</h1>
-      <p class="p-summary description" transition:name={`blog-desc-${Astro.url.pathname}`}>{frontmatter.description}</p>
+      <h1 class="p-name" transition:name={`blog-title-${Astro.url.pathname}`}>
+        {frontmatter.title}
+      </h1>
+      <p
+        class="p-summary description"
+        transition:name={`blog-desc-${Astro.url.pathname}`}
+      >
+        {frontmatter.description}
+      </p>
 
       <div class="meta">
         <time class="date dt-published" datetime={date.toISOString()}>
@@ -84,10 +95,12 @@ const jsonLd = {
       <slot />
     </div>
 
-    <wm-mentions post-url={postUrl} />
+    <wm-mentions post-url={postUrl}></wm-mentions>
   </article>
 
-  <script>import "../components/webmentions.ts"</script>
+  <script>
+    import "../components/webmentions.ts";
+  </script>
 </BaseLayout>
 
 <style>

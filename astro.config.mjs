@@ -15,7 +15,7 @@ export default defineConfig({
     responsiveStyles: true,
   },
 
-  site: "https://www.keijilohier.com",
+  site: "https://keijilohier.com",
   integrations: [mdx(), sitemap()],
   adapter: cloudflare({
     imageService: "compile",
