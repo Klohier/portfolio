@@ -95,7 +95,9 @@ const jsonLd = {
       <slot />
     </div>
 
-    <wm-mentions post-url={postUrl}></wm-mentions>
+    <wm-mentions
+      post-url={postUrl}
+      endpoint="https://webmention.io/keijilohier.com/webmention"></wm-mentions>
   </article>
 
   <script>
@@ -151,5 +153,25 @@ const jsonLd = {
     font-size: 0.875rem;
     opacity: 0.65;
     margin-bottom: 1rem;
+  }
+
+  wm-mentions {
+    --wm-accent-color: var(--blue-8);
+    --wm-text-color: var(--text-color);
+    --wm-border-color: var(--blue-7);
+    --wm-reply-bg: var(--blue-2);
+    --wm-reply-border-color: var(--blue-6);
+    --wm-input-bg: var(--blue-2);
+    --wm-input-border-color: var(--blue-6);
+    --wm-avatar-bg: var(--blue-6);
+    --wm-button-text-color: var(--text-color);
+  }
+
+  wm-mentions::part(reply) {
+    border-radius: 8px;
+  }
+
+  wm-mentions::part(button) {
+    background: var(--blue-8);
   }
 </style>
