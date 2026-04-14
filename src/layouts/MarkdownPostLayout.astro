@@ -95,13 +95,14 @@ const jsonLd = {
       <slot />
     </div>
 
-    <wm-mentions
+    <webmention-feed
       post-url={postUrl}
-      endpoint="https://webmention.io/keijilohier.com/webmention"></wm-mentions>
+      endpoint="https://webmention.io/keijilohier.com/webmention"
+    ></webmention-feed>
   </article>
 
   <script>
-    import "../components/webmentions.ts";
+    import "webmention-feed";
   </script>
 </BaseLayout>
 
@@ -155,7 +156,7 @@ const jsonLd = {
     margin-bottom: 1rem;
   }
 
-  wm-mentions {
+  webmention-feed {
     --wm-accent-color: var(--blue-8);
     --wm-text-color: var(--text-color);
     --wm-border-color: var(--blue-7);
@@ -167,11 +168,11 @@ const jsonLd = {
     --wm-button-text-color: var(--text-color);
   }
 
-  wm-mentions::part(reply) {
+  webmention-feed::part(reply) {
     border-radius: 8px;
   }
 
-  wm-mentions::part(button) {
+  webmention-feed::part(button) {
     background: var(--blue-8);
   }
 </style>
