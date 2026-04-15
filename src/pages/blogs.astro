@@ -22,12 +22,13 @@ const jsonLd = {
     author: {
       "@type": "Person",
       name: post.data.author,
+      url: siteUrl,
     },
     description: post.data.description,
     datePublished: post.data.pubDate,
     url: `${siteUrl}/blogs/${post.id}`,
     ...(post.data.image?.url && {
-      image: `${siteUrl}${post.data.image.url}`,
+      image: `${siteUrl}${post.data.image.url.src}`,
     }),
   })),
 };
