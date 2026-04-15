@@ -9,9 +9,13 @@ image:
   alt: webmention-feed component hero
 ---
 
-I published my first package to npm. It's a Lit web component that renders a webmention feed. I originally built it for my own site but wanted to experiment making something that others can use and customize. I chose to make it a web component so that it can be used in any framework and be as simple as a tag in your HTML. I used Lit as the base for the components for its developer experience and reduced boilerplate compared to vanilla web components.
+I published my first package to npm. It's a Lit web component that renders a webmention feed. It works with webmention.io and paired with brid.gy, enables backfeeding social interactionsinto your own site. It was built for my own site but I wanted to experiment seeing how it could be reused by others. I chose to make it a web component so that it can be used in any framework or none at all and be as simple as a tag in your HTML.
+
+I used Lit as the base for the components for its developer experience and reduced boilerplate compared to vanilla web components.
 
 The part I enjoyed most was thinking beyond my own use case. The component ships with sensible defaults but exposes CSS custom properties for easy theming and `::part()` selectors for deeper structural overrides. You can even swap out the like and repost icons and pagination labels via slots.
+
+I further want to explore web components as a way to build and share UI components as I feel like interoperabliity is a very nice feature to have. Excited to learn more about the shadow DOM and `::part()` selectors.
 
 The source code is open on GitHub, and the package is published under the name `webmention-feed`. If you want to add a webmention feed to your site, give it a try! [Check out the source on GitHub](https://github.com/Klohier/webmention-feed).
 
