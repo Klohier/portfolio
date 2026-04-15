@@ -26,7 +26,7 @@ const jsonLd = {
   datePublished: date.toISOString(),
   url: postUrl,
   ...(frontmatter.image?.url && {
-    image: `${siteUrl}${frontmatter.image.url}`,
+    image: `${siteUrl}${frontmatter.image.url.src}`,
   }),
   ...(frontmatter.tags?.length > 0 && {
     keywords: frontmatter.tags.join(", "),
@@ -49,8 +49,6 @@ const jsonLd = {
             src={frontmatter.image.url}
             alt={frontmatter.image.alt}
             width={1200}
-            height={630}
-            layout="constrained"
           />
         )
       }
@@ -89,9 +87,9 @@ const jsonLd = {
 
 <style>
   article {
-    max-width: 150ch;
+    max-width: 75ch;
     margin: 0 auto;
-    padding: 1rem 1.5rem 4rem;
+    padding: 1rem 2rem 4rem;
   }
 
   .back-link {
@@ -107,12 +105,13 @@ const jsonLd = {
   }
 
   .post-image {
-    width: 100%;
-    max-height: 360px;
-    object-fit: cover;
-    object-position: top;
+    max-width: 100%;
+    max-height: 480px;
+    width: auto;
+    height: auto;
+    display: block;
+    margin: 0 auto 2rem;
     border-radius: 8px;
-    margin-bottom: 2rem;
   }
 
   h1 {
