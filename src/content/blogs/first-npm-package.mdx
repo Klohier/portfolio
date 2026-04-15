@@ -1,0 +1,307 @@
+---
+title: "I Published My First NPM Package"
+pubDate: "2026-04-14"
+description: "A customizable Lit web component for displaying webmention feeds from webmention.io. themeable via CSS custom properties and ::part() selectors, available on npm."
+author: "Keiji Lohier"
+tags: ["npm", "Web Components", "Lit", "IndieWeb", "Webmentions"]
+image:
+  url: /icons8-npm-480.png
+  alt: npm logo
+---
+
+I published my first package to npm. It's a Lit web component that renders a webmention feed. I originally built it for my own site but wanted to experiment making something that others can use and customize. I chose to make it a web component so that it can be used in any framework and be as simple as a tag in your HTML. I used Lit as the base for the components for its developer experience and reduced boilerplate compared to vanilla web components.
+
+The part I enjoyed most was thinking beyond my own use case. The component ships with sensible defaults but exposes CSS custom properties for easy theming and `::part()` selectors for deeper structural overrides. You can even swap out the like and repost icons and pagination labels via slots.
+
+The source code is open on GitHub, and the package is published under the name `webmention-feed`. If you want to add a webmention feed to your site, give it a try! [Check out the source on GitHub](https://github.com/Klohier/keiji-components/tree/main/packages/webmention-feed).
+
+Some example looks below
+
+---
+
+## Default Look
+
+<webmention-feed
+post-url="https://keijilohier.com/blogs/first-npm-package"
+endpoint="https://webmention.io/keijilohier.com/webmention"
+fetch-endpoint="/mock-webmentions.json"
+per-page="3"
+
+> </webmention-feed>
+
+<details>
+<summary>See the configuration</summary>
+
+```html
+<webmention-feed
+  post-url="https://yoursite.com/your-post/"
+  endpoint="https://webmention.io/yoursite.com/webmention"
+  per-page="3"
+></webmention-feed>
+```
+
+</details>
+
+---
+
+## Dark neon
+
+Monospace font, magenta accents, and sharp corners via `::part()`.
+
+<webmention-feed
+post-url="https://keijilohier.com/blogs/first-npm-package"
+endpoint="https://webmention.io/keijilohier.com/webmention"
+fetch-endpoint="/mock-webmentions.json"
+per-page="3"
+style="
+--wm-accent-color: #f0f;
+--wm-text-color: #e0e0e0;
+--wm-border-color: #f0f;
+--wm-reply-bg: #0d0d0d;
+--wm-reply-border-color: #f0f;
+--wm-input-bg: #111;
+--wm-input-border-color: #f0f;
+--wm-avatar-bg: #2a002a;
+--wm-button-text-color: #fff;
+font-family: monospace;
+"
+
+>
+
+  <span slot="like-icon">♦</span>
+  <span slot="repost-icon">⟳</span>
+  <span slot="prev-label">◀ prev</span>
+  <span slot="next-label">next ▶</span>
+</webmention-feed>
+
+<details>
+<summary>See the configuration</summary>
+
+```html
+<webmention-feed
+  post-url="https://yoursite.com/your-post/"
+  endpoint="https://webmention.io/yoursite.com/webmention"
+  per-page="3"
+  style="
+    --wm-accent-color: #f0f;
+    --wm-text-color: #e0e0e0;
+    --wm-border-color: #f0f;
+    --wm-reply-bg: #0d0d0d;
+    --wm-reply-border-color: #f0f;
+    --wm-input-bg: #111;
+    --wm-input-border-color: #f0f;
+    --wm-avatar-bg: #2a002a;
+    --wm-button-text-color: #fff;
+    font-family: monospace;
+  "
+>
+  <span slot="like-icon">♦</span>
+  <span slot="repost-icon">⟳</span>
+  <span slot="prev-label">◀ prev</span>
+  <span slot="next-label">next ▶</span>
+</webmention-feed>
+```
+
+```css
+webmention-feed::part(reply) {
+  border-radius: 0;
+  border-left: 2px solid #f0f;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  padding-left: 1rem;
+}
+webmention-feed::part(button) {
+  border-radius: 0;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+webmention-feed::part(page-button) {
+  background: transparent;
+  color: #f0f;
+  border: 1px solid #f0f;
+  border-radius: 0;
+  font-family: monospace;
+}
+webmention-feed::part(page-button--disabled) {
+  opacity: 0.2;
+}
+```
+
+</details>
+
+<style>{`
+  webmention-feed:nth-of-type(2)::part(reply) {
+    border-radius: 0;
+    border-left: 2px solid #f0f;
+    border-top: none;
+    border-right: none;
+    border-bottom: none;
+    padding-left: 1rem;
+  }
+  webmention-feed:nth-of-type(2)::part(button) {
+    border-radius: 0;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  webmention-feed:nth-of-type(2)::part(page-button) {
+    background: transparent;
+    color: #f0f;
+    border: 1px solid #f0f;
+    border-radius: 0;
+    font-family: monospace;
+  }
+  webmention-feed:nth-of-type(2)::part(page-button--disabled) {
+    opacity: 0.2;
+  }
+`}</style>
+
+---
+
+## Brutalist
+
+Bold typography, yellow accents, and offset box shadows via `::part()`.
+
+<webmention-feed
+post-url="https://keijilohier.com/blogs/first-npm-package"
+endpoint="https://webmention.io/keijilohier.com/webmention"
+fetch-endpoint="/mock-webmentions.json"
+per-page="3"
+style="
+--wm-accent-color: #ffe600;
+--wm-text-color: #fff;
+--wm-border-color: #ffe600;
+--wm-reply-bg: #111;
+--wm-reply-border-color: #ffe600;
+--wm-input-bg: #222;
+--wm-input-border-color: #ffe600;
+--wm-avatar-bg: #333;
+--wm-button-text-color: #111;
+font-family: 'Arial Black', Arial, sans-serif;
+"
+
+>
+
+  <span slot="like-icon">▲</span>
+  <span slot="repost-icon">⬛</span>
+  <span slot="prev-label">← BACK</span>
+  <span slot="next-label">MORE →</span>
+</webmention-feed>
+
+<details>
+<summary>See the configuration</summary>
+
+```html
+<webmention-feed
+  post-url="https://yoursite.com/your-post/"
+  endpoint="https://webmention.io/yoursite.com/webmention"
+  per-page="3"
+  style="
+    --wm-accent-color: #ffe600;
+    --wm-text-color: #fff;
+    --wm-border-color: #ffe600;
+    --wm-reply-bg: #111;
+    --wm-reply-border-color: #ffe600;
+    --wm-input-bg: #222;
+    --wm-input-border-color: #ffe600;
+    --wm-avatar-bg: #333;
+    --wm-button-text-color: #111;
+    font-family: 'Arial Black', Arial, sans-serif;
+  "
+>
+  <span slot="like-icon">▲</span>
+  <span slot="repost-icon">⬛</span>
+  <span slot="prev-label">← BACK</span>
+  <span slot="next-label">MORE →</span>
+</webmention-feed>
+```
+
+```css
+webmention-feed::part(reply) {
+  border-radius: 0;
+  border: 3px solid #ffe600;
+  box-shadow: 5px 5px 0 #ffe600;
+  margin-bottom: 4px;
+}
+webmention-feed::part(heading) {
+  font-size: 2rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  border-bottom: 4px solid #ffe600;
+  padding-bottom: 0.25rem;
+}
+webmention-feed::part(button) {
+  border-radius: 0;
+  border: 3px solid #ffe600;
+  box-shadow: 3px 3px 0 #ffe600;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+webmention-feed::part(input) {
+  border-radius: 0;
+  border: 3px solid #ffe600;
+  font-weight: 700;
+  color: #fff;
+}
+webmention-feed::part(page-button) {
+  background: #111;
+  color: #ffe600;
+  border: 3px solid #ffe600;
+  border-radius: 0;
+  box-shadow: 3px 3px 0 #ffe600;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+webmention-feed::part(page-button--disabled) {
+  opacity: 0.2;
+  box-shadow: none;
+}
+```
+
+</details>
+
+<style>{`
+  webmention-feed:nth-of-type(3)::part(reply) {
+    border-radius: 0;
+    border: 3px solid #ffe600;
+    box-shadow: 5px 5px 0 #ffe600;
+    margin-bottom: 4px;
+  }
+  webmention-feed:nth-of-type(3)::part(heading) {
+    font-size: 2rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    border-bottom: 4px solid #ffe600;
+    padding-bottom: 0.25rem;
+  }
+  webmention-feed:nth-of-type(3)::part(button) {
+    border-radius: 0;
+    border: 3px solid #ffe600;
+    box-shadow: 3px 3px 0 #ffe600;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  webmention-feed:nth-of-type(3)::part(input) {
+    border-radius: 0;
+    border: 3px solid #ffe600;
+    font-weight: 700;
+    color: #fff;
+  }
+  webmention-feed:nth-of-type(3)::part(page-button) {
+    background: #111;
+    color: #ffe600;
+    border: 3px solid #ffe600;
+    border-radius: 0;
+    box-shadow: 3px 3px 0 #ffe600;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+  webmention-feed:nth-of-type(3)::part(page-button--disabled) {
+    opacity: 0.2;
+    box-shadow: none;
+  }
+`}</style>

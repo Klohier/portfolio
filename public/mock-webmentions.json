@@ -1,0 +1,20 @@
+{
+  "type": "feed",
+  "children": [
+    { "wm-property": "like-of", "url": "https://user1.example.com/liked", "author": { "name": "Alice", "url": "https://user1.example.com" }, "published": "2024-03-01T12:00:00Z" },
+    { "wm-property": "like-of", "url": "https://user2.example.com/liked", "author": { "name": "Bob", "url": "https://user2.example.com" }, "published": "2024-03-02T12:00:00Z" },
+    { "wm-property": "like-of", "url": "https://user3.example.com/liked", "author": { "name": "Carol", "url": "https://user3.example.com" }, "published": "2024-03-03T12:00:00Z" },
+    { "wm-property": "like-of", "url": "https://user4.example.com/liked", "author": { "name": "Dave", "url": "https://user4.example.com" }, "published": "2024-03-04T12:00:00Z" },
+    { "wm-property": "like-of", "url": "https://user5.example.com/liked", "author": { "name": "Eve", "url": "https://user5.example.com" }, "published": "2024-03-05T12:00:00Z" },
+    { "wm-property": "repost-of", "url": "https://user6.example.com/reposted", "author": { "name": "Frank", "url": "https://user6.example.com" }, "published": "2024-03-06T12:00:00Z" },
+    { "wm-property": "repost-of", "url": "https://user7.example.com/reposted", "author": { "name": "Grace", "url": "https://user7.example.com" }, "published": "2024-03-07T12:00:00Z" },
+    { "wm-property": "in-reply-to", "url": "https://user8.example.com/reply", "author": { "name": "Heidi", "url": "https://user8.example.com" }, "published": "2024-03-08T12:00:00Z", "content": { "text": "Great post! Really enjoyed reading this." } },
+    { "wm-property": "in-reply-to", "url": "https://user9.example.com/reply", "author": { "name": "Ivan", "url": "https://user9.example.com" }, "published": "2024-03-09T12:00:00Z", "content": { "text": "This changed how I think about web components entirely." } },
+    { "wm-property": "in-reply-to", "url": "https://user10.example.com/reply", "author": { "name": "Judy", "url": "https://user10.example.com" }, "published": "2024-03-10T12:00:00Z", "content": { "text": "The CSS parts approach is underrated — glad you covered it." } },
+    { "wm-property": "mention-of", "url": "https://user11.example.com/mention", "author": { "name": "Karl", "url": "https://user11.example.com" }, "published": "2024-03-11T12:00:00Z", "content": { "text": "Mentioned this in my newsletter this week." } },
+    { "wm-property": "in-reply-to", "url": "https://user12.example.com/reply", "author": { "name": "Laura", "url": "https://user12.example.com" }, "published": "2024-03-12T12:00:00Z", "content": { "text": "Would love a follow-up on dark mode defaults." } },
+    { "wm-property": "in-reply-to", "url": "https://user13.example.com/reply", "author": { "name": "Mallory", "url": "https://user13.example.com" }, "published": "2024-03-13T12:00:00Z", "content": { "text": "Perfect timing — just ran into this exact problem." } },
+    { "wm-property": "mention-of", "url": "https://user14.example.com/mention", "author": { "name": "Niaj", "url": "https://user14.example.com" }, "published": "2024-03-14T12:00:00Z", "content": { "text": "Bookmarked. Coming back to this one." } },
+    { "wm-property": "in-reply-to", "url": "https://user15.example.com/reply", "author": { "name": "Olivia", "url": "https://user15.example.com" }, "published": "2024-03-15T12:00:00Z", "content": { "text": "Short and to the point. More posts like this please." } }
+  ]
+}
