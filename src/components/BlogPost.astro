@@ -4,7 +4,7 @@ const { title, url, image, description, pubDate } = Astro.props;
 ---
 
 <a href={url} class="post-card">
-  {image && <Image src={image.url} alt={image.alt} width={400} height={300} class="post-thumbnail" transition:name={`blog-image-${url}`} />}
+  {image && <Image src={image.url} alt={image.alt} width={400} class="post-thumbnail" transition:name={`blog-image-${url}`} />}
   <div class="post-info">
     <h2 class="post-title" transition:name={`blog-title-${url}`}>{title}</h2>
     {
