@@ -77,11 +77,15 @@ RUN bootc container lint
 
 ```
 
-In my homelab, this made maintaining the system easier as there was now only one source of truth that every system in my lab was running. I learned about hardening systems using openscap and SELinux then incorporated that into the base image so that all my systems were hardened by default. The base image also includes qemu-guest-agent and cloud-init so that I can manage the systems through proxmox. The very last service I added was tailscale so that I could connect to my homelab remotely. The benefit with bootc is that when I make an update to the container file and push it to the registry, all my VMs are able to update to the new image with built in rollback support if needed. Bootc gives me the same image based operating system but does not configure the applications running on top of it. This is where Ansible comes in.
+In my homelab, this made maintaining the system easier as there was now only one source of truth that every system in my lab was running. I learned about hardening systems using openscap and SELinux then incorporated that into the base image so that all my systems were hardened by default. The base image also includes qemu-guest-agent and cloud-init so that I can manage the systems through proxmox. The very last service I added was tailscale so that I could connect to my homelab remotely.
+
+The benefit with bootc is that when I make an update to the container file and push it to the registry, all my VMs are able to update to the new image with built in rollback support if needed. Bootc gives me the same image based operating system but does not configure the applications running on top of it. This is where Ansible comes in.
 
 # What is Ansible?
 
-Ansible helps you configure your servers using code. In my setup I have playbooks that configure the entire server stack by setting up caddy and using dynamic inventories with proxmox. This allows all my playbooks to be updated with what's currently running on the server. When I set up a new VM and run the playbook, caddy automatically creates a domain name so that I don't have to use the IP address directly. Incorporated with Ansible Automation Platform I am able to have the playbooks on a schedule, have credentials stored securely in one central location, and be injected into the playbooks when needed.
+Ansible helps you configure your servers using code. In my setup I have playbooks that configure the entire server stack by setting up caddy and using dynamic inventories with proxmox. This allows all my playbooks to be updated with what's currently running on the server.
+
+When I set up a new VM and run the playbook, caddy automatically creates a domain name so that I don't have to use the IP address directly. Incorporated with Ansible Automation Platform I am able to have the playbooks on a schedule, have credentials stored securely in one central location, and be injected into the playbooks when needed.
 
 <figure>
   <Image
@@ -95,7 +99,9 @@ Ansible helps you configure your servers using code. In my setup I have playbook
   </figcaption>
 </figure>
 
-I fell down the rabbit hole of Ansible and found that I could use it as well to setup the entire network for my homelab. Using my ubiquiti unifi controller, I was able to use Ansible to configure my VLANs and firewall rules to segment my homelab, iot devices, and guest devices from each other. This was huge as it allowed me to have my network configuration version controlled. The beauty of Ansible are the collections that are available to make it easy to integrate with other systems. Once I had a repeatable operating system and a way to configure it, I needed a way to provision the VMs. This is where Terraform/OpenTofu comes in.
+I fell down the rabbit hole of Ansible and found that I could use it as well to setup the entire network for my homelab. Using my ubiquiti unifi controller, I was able to use Ansible to configure my VLANs and firewall rules to segment my homelab, iot devices, and guest devices from each other. This was huge as it allowed me to have my network configuration version controlled.
+
+The beauty of Ansible are the collections that are available to make it easy to integrate with other systems. Once I had a repeatable operating system and a way to configure it, I needed a way to provision the VMs. This is where Terraform/OpenTofu comes in.
 
 # What is Terraform/OpenTofu?
 
@@ -203,6 +209,10 @@ With this setup I can easily create new VMs by adding a new module block. This a
   </figcaption>
 </figure>
 
-Getting all of this working together was satisfying, and cuts down a lot of the manual work I used to do when maintaining my homelab. With this stack I am less afraid to experiment and break things because I can revert to a previous state as everything is version controlled in git. To test my setup, I wiped my entire lab including my home network. It took 5 minutes to get everything up and running again. This is a huge improvement compared to the hours it used to take when I had to manually configure everything. My CI/CD pipeline already handles building and pushing bootc image updates to the registry. The next step is to have pipelines handling deploying the playbooks and OpenTofu modules to my lab so that whatever is in git is what is running in my lab. Check out my GitHub repository to see how I have everything setup.
+Getting all of this working together was satisfying, and cuts down a lot of the manual work I used to do when maintaining my homelab. With this stack I am less afraid to experiment and break things because I can revert to a previous state as everything is version controlled in git.
+
+To test my setup, I wiped my entire lab including my home network. It took 5 minutes to get everything up and running again. This is a huge improvement compared to the hours it used to take when I had to manually configure everything.
+
+My CI/CD pipeline already handles building and pushing bootc image updates to the registry. The next step is to have pipelines handling deploying the playbooks and OpenTofu modules to my lab so that whatever is in git is what is running in my lab. Check out my GitHub repository to see how I have everything setup.
 
 <Button href="https://github.com/Klohier/geronimo-lab" name="View on GitHub" />
