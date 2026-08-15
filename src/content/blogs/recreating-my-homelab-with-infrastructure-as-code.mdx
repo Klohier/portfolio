@@ -1,11 +1,11 @@
 ---
-title: "I've Automated My Homelab with the BAT Stack (Bootc, Ansible, Terraform/OpenTofu)"
+title: "How to Setup a Homelab with Infrastructure as Code using the BAT Stack ( Bootc, Ansible, Terraform / OpenTofu )"
 pubDate: "2026-06-26"
-description: "I rebuilt Geronimo Lab using Bootc, Ansible, Terraform/OpenTofu. This stack allows me to manage my homelab entirely through infrastructure as code tools, making it easier to maintain, scale and automate."
+description: "Rebuilding a homelab using Bootc, Ansible, Terraform / OpenTofu. This stack allows you to manage your homelab entirely through infrastructure as code tools, making it easier to maintain, scale and automate."
 author: "Keiji Lohier"
 image:
-  url: ../../assets/images/proxmox-lab.png
-  alt: "Screenshot of Proxmox home dashboard."
+  url: ../../assets/images/bat-diagram.jpg
+  alt: "Architecture diagram showing the BAT stack flow: a Containerfile, configurations, and playbooks are committed to Git, which triggers an Image Builder pipeline that produces a qcow2 disk image from bootc containerfile. OpenTofu provisions VMs from the qcow2 image, while the registry pushes bootc updates directly to running VMs. Ansible runs playbooks against the provisioned infrastructure."
 tags:
   [
     "homelab",
@@ -22,19 +22,20 @@ tags:
 ---
 
 import aap from "../../assets/images/aap.png";
-import batdiagram from "../../assets/images/bat-diagram.jpg";
+import proxmox from "../../assets/images/proxmox-lab.png";
 import Button from "../../components/Button.astro";
 
 import { Image } from "astro:assets";
 
-After playing around with my homelab creating services and self hosting anything I can think of, I came to the realization that manually managing these services was taking a lot of time.
-Services only got updated whenever they notified me and I got to it. While my documentation stayed up to date as I made major changes, I found myself forgetting to note down any ad hoc change I made to the system. This led to a drift between my documentation and the actual state of my servers. I had no trust that I would be able to rebuild my homelab if I had to.
+After playing around with my homelab creating services and self hosting anything I can think of, I came to the realization that manually managing these services was taking a lot of time. Every quick fix was soon forgotten and I would have to spend time figuring out what I did to fix it. I was also having to manually update the services running on my homelab. This was a problem because I was not able to keep up with the updates and security patches for all the services I was running.
 
-The BAT stack is a combination of Bootc, Ansible and Terraform/OpenTofu. This stack allows me to manage my homelab entirely with infrastructure as code tools, making it easier to maintain, scale, automate, and recover.
+This led me to the decision to rebuild my homelab using infrastructure as code in order to have a repeatable and predictable setup. The BAT stack is a combination of Bootc, Ansible and Terraform/OpenTofu.
+
+{/* Services only got updated whenever they notified me and I got to it. While my documentation stayed up to date as I made major changes, I found myself forgetting to note down any ad hoc change I made to the system. This led to a drift between my documentation and the actual state of my servers. I had no trust that I would be able to rebuild my homelab if I had to. */}
 
 # What is BootC?
 
-Bootc helps you to make containerized operating system images the same way you would make a container image with Docker or Podman. Instead of having to maintain different systems with different configurations, I can maintain one base image that all my systems are based on.
+Bootc helps you make containerized operating system images the same way you would make a container image with Docker or Podman. Instead of having to maintain different systems with different configurations, You can maintain one base image that all your systems are based on.
 
 ```dockerfile
 FROM quay.io/fedora/fedora-bootc:44
@@ -79,37 +80,36 @@ RUN bootc container lint
 
 ```
 
-In my homelab, this made maintaining the system easier as there was now only one source of truth that every system in my lab was running. I learned about hardening systems using openscap and SELinux then incorporated that into the base image so that all my systems were hardened by default. The base image also includes qemu-guest-agent and cloud-init so that I can manage the systems through proxmox. The very last service I added was tailscale so that I could connect to my homelab remotely.
+In my homelab, this made maintaining the system easier as there was now only one source of truth that every system in my lab was running. An important step in this process was making sure that my systems were hardened by default. Using the CIS hardening guide for Fedora, I was able to harden my systems and make sure that they were secure. The base image also includes qemu-guest-agent and cloud-init so that you can manage the systems through proxmox. The very last service added was tailscale so that I could connect to my homelab remotely.
 
-The benefit with bootc is that when I make an update to the container file and push it to the registry, all my VMs are able to update to the new image with built in rollback support if needed. Bootc gives me the same image based operating system but does not configure the applications running on top of it. This is where Ansible comes in.
+The benefit with bootc is that when you make an update to the container file and push it to the registry, all your VMs are able to update to the new image with built in rollback support if needed. Bootc gives you the same image based operating system but does not configure the applications running on top of it. This is where Ansible comes in.
 
 # What is Ansible?
 
-Ansible helps you configure your servers using code. In my setup I have playbooks that configure the entire server stack by setting up caddy and using dynamic inventories with proxmox. This allows all my playbooks to be updated with what's currently running on the server.
+Ansible helps you configure your servers using code. In this setup there are playbooks that configure the entire server stack by setting up caddy and using dynamic inventories with proxmox. This allows all the playbooks to be updated with what's currently running on the server.
 
-When I set up a new VM and run the playbook, caddy automatically creates a domain name so that I don't have to use the IP address directly. Incorporated with Ansible Automation Platform I am able to have the playbooks on a schedule, have credentials stored securely in one central location, and be injected into the playbooks when needed.
+When you set up a new VM and run the playbook, caddy automatically creates a domain name so that you don't have to use the IP address directly. Incorporated with Ansible Automation Platform you are able to have the playbooks on a schedule, have credentials stored securely in one central location, and be injected into the playbooks when needed.
 
 <figure>
   <Image
     src={aap}
     alt="Ansible Automation Platform dashboard showing the playbooks setup"
     layout="constrained"
-    width={800}
   />
   <figcaption>
     Ansible Automation Platform dashboard showing the playbooks I have setup
   </figcaption>
 </figure>
 
-I fell down the rabbit hole of Ansible and found that I could use it as well to setup the entire network for my homelab. Using my ubiquiti unifi controller, I was able to use Ansible to configure my VLANs and firewall rules to segment my homelab, iot devices, and guest devices from each other. This was huge as it allowed me to have my network configuration version controlled.
+The beauty of Ansible is that you are also able to use it to configure your network. I was able to use Ansible to configure my ubiquiti unifi controller and set up VLANs and firewall rules to segment my homelab, iot devices, and guest devices from each other. This was huge as it allowed me to have my network configuration version controlled.
 
-The beauty of Ansible are the collections that are available to make it easy to integrate with other systems. Once I had a repeatable operating system and a way to configure it, I needed a way to provision the VMs. This is where Terraform/OpenTofu comes in.
+Once you have a repeatable operating system and a way to configure it, You need a way to provision the VMs. This is where Terraform/OpenTofu comes in.
 
-# What is Terraform/OpenTofu?
+# What is Terraform / OpenTofu?
 
 Terraform/OpenTofu helps you create and manage your infrastructure using code. I chose OpenTofu in my lab as it is a community driven fork of Terraform and is open source. It maintains compatibility with Terraform modules and providers. For proxmox, I used the bpg provider because it was being actively maintained and recently updated.
 
-To avoid duplicating configuration, I created a reusable VM module. Each virtual machine only specifies the values that differ, such as its name, CPU, memory, disk size, and IP address, while the module handles the shared configuration. By using this module, I can easily create new VMs that already have the configuration I want and are ready to be managed by Ansible.
+To avoid duplicating configurations, create a reusable VM module. Each virtual machine only specifies the values that differ, such as its name, CPU, memory, disk size, and IP address, while the module handles the shared configuration. By using this module, you can easily create new VMs that already have the configuration you want and are ready to be managed by Ansible.
 
 ```hcl
 resource "proxmox_virtual_environment_vm" "this" {
@@ -195,26 +195,26 @@ module "caddy" {
 
 ```
 
-With this setup I can easily create new VMs by adding a new module block. This approach allows me to know that my entire lab is created with a predictable baseline. All these tools together make up the BAT stack.
+With this setup you can easily create new VMs by adding a new module block. This approach allows you to know that your entire lab is created with a predictable baseline. All these tools together make up the BAT stack.
 
 # Conclusion
 
 <figure>
   <Image
-    src={batdiagram}
-    alt="Architecture diagram showing the BAT stack flow: a Containerfile, configurations, and playbooks are committed to Git, which triggers an Image Builder pipeline that produces a qcow2 disk image from bootc containerfile. OpenTofu provisions VMs from the qcow2 image, while the registry pushes bootc updates directly to running VMs. Ansible runs playbooks against the provisioned infrastructure."
+    src={proxmox}
+    alt="screenshot of Proxmox home dashboard showing the VMs and containers running in my homelab"
     layout="constrained"
-    width={800}
-  />
+/>
+
   <figcaption>
     The BAT stack and how it all works together to manage my homelab
   </figcaption>
 </figure>
 
-Getting all of this working together was satisfying, and cuts down a lot of the manual work I used to do when maintaining my homelab. With this stack I am less afraid to experiment and break things because I can revert to a previous state as everything is version controlled in git.
+Getting all of this working together was satisfying, and cuts down a lot of the manual work used to maintain a homelab. Using this stack lets you be less afraid to experiemnt and break things because you can revert to a previous state as it is version controlled in git.
 
-To test my setup, I wiped my entire lab including my home network. It took 5 minutes to get everything up and running again. This is a huge improvement compared to the hours it used to take when I had to manually configure everything.
+To test the setup, I wiped my entire lab including my home network. It took 5 minutes to get everything up and running again. This is a huge improvement compared to the hours it used to take when I had to manually configure everything.
 
-My CI/CD pipeline already handles building and pushing bootc image updates to the registry. The next step is to have pipelines handling deploying the playbooks and OpenTofu modules to my lab so that whatever is in git is what is running in my lab. Check out my GitHub repository to see how I have everything setup.
+My CI/CD pipeline already handles building and pushing bootc image updates to the registry. The next step is to have pipelines handling deploying the playbooks and OpenTofu modules to my lab so that whatever is in git is what is running in my lab. Check out my GitHub repository to see how I have everything setup and how you can use it for your projects!
 
 <Button href="https://github.com/Klohier/geronimo-lab" name="View on GitHub" />
