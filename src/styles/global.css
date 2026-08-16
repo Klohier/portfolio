@@ -39,8 +39,8 @@ Use a better box model (opinionated).
 
 html {
   font-family:
-    system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji"; /* 1 */
+    "Pliant", Helvetica, Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji"; /* 1 */
   line-height: 1.15; /* 2 */
   -webkit-text-size-adjust: 100%; /* 3 */
   tab-size: 4; /* 4 */
@@ -55,11 +55,6 @@ Sections
 /**
 Remove the margin in all browsers.
 */
-
-body {
-  background-color: #003049;
-  margin: 0;
-}
 
 /*
 Text-level semantics
@@ -398,4 +393,74 @@ a:visited {
   margin-top: 0.5rem;
   margin-bottom: 1.25rem;
   font-style: italic;
+}
+
+.prose details {
+  background: var(--blue-2);
+  border: 1px solid var(--blue-7);
+  border-radius: 8px;
+  margin-bottom: 1.25rem;
+  padding: 0.75rem 1.25rem;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.prose details[open] {
+  background: var(--blue-1);
+  padding-bottom: 1rem;
+}
+
+.prose summary {
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0.25rem 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  user-select: none;
+  transition: color 0.2s ease;
+}
+
+/* Kill default markers across browsers */
+.prose summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Custom chevron */
+.prose summary::before {
+  content: "";
+  display: inline-block;
+  width: 0.5em;
+  height: 0.5em;
+  margin-right: 0.6rem;
+  border-right: 2px solid var(--secondary-color);
+  border-bottom: 2px solid var(--secondary-color);
+  transform: rotate(-45deg);
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.prose details[open] summary::before {
+  transform: rotate(45deg);
+}
+
+.prose details:hover {
+  border-color: var(--secondary-color);
+}
+
+.prose summary:hover {
+  color: var(--link-hover-color);
+}
+
+.prose summary:hover::before {
+  border-color: var(--link-hover-color);
+}
+
+.prose details summary + * {
+  margin-top: 0.75rem;
+}
+
+.prose details pre {
+  margin-bottom: 0;
 }

@@ -1,7 +1,7 @@
 ---
-title: "How to Setup a Homelab with Infrastructure as Code using the BAT Stack ( Bootc, Ansible, Terraform / OpenTofu )"
+title: "How I Setup my Homelab with Infrastructure as Code using the BAT Stack ( Bootc, Ansible, Terraform / OpenTofu )"
 pubDate: "2026-06-26"
-description: "Rebuilding a homelab using Bootc, Ansible, Terraform / OpenTofu. This stack allows you to manage your homelab entirely through infrastructure as code tools, making it easier to maintain, scale and automate."
+description: "Building a homelab using Bootc, Ansible, Terraform / OpenTofu. This stack allows you to manage your homelab entirely through infrastructure as code tools, making it easier to maintain, scale and automate."
 author: "Keiji Lohier"
 image:
   url: ../../assets/images/bat-diagram.jpg
@@ -27,15 +27,14 @@ import Button from "../../components/Button.astro";
 
 import { Image } from "astro:assets";
 
-After playing around with my homelab creating services and self hosting anything I can think of, I came to the realization that manually managing these services was taking a lot of time. Every quick fix was soon forgotten and I would have to spend time figuring out what I did to fix it. I was also having to manually update the services running on my homelab. This was a problem because I was not able to keep up with the updates and security patches for all the services I was running.
-
-This led me to the decision to rebuild my homelab using infrastructure as code in order to have a repeatable and predictable setup. The BAT stack is a combination of Bootc, Ansible and Terraform/OpenTofu.
-
-{/* Services only got updated whenever they notified me and I got to it. While my documentation stayed up to date as I made major changes, I found myself forgetting to note down any ad hoc change I made to the system. This led to a drift between my documentation and the actual state of my servers. I had no trust that I would be able to rebuild my homelab if I had to. */}
+After playing around with my homelab and hosting anything I found intriguing, I came to the realization that manually sshing into all my systems was taking a lot of time. Sitting through another fresh install of an OS and configuring it wasn't fun either when I wanted a quick virtual machine. I wanted a way to manage my homelab with code, so that I could easily create new VMs and have them configured automatically. The tools I used to achieve this were Bootc, Ansible, and Terraform/OpenTofu which I like to call the BAT stack.
 
 # What is BootC?
 
 Bootc helps you make containerized operating system images the same way you would make a container image with Docker or Podman. Instead of having to maintain different systems with different configurations, You can maintain one base image that all your systems are based on.
+
+<details>
+<summary>The bootc base image of my homelab</summary>
 
 ```dockerfile
 FROM quay.io/fedora/fedora-bootc:44
@@ -77,8 +76,9 @@ RUN systemctl enable \
     tailscaled.service
 
 RUN bootc container lint
-
 ```
+
+</details>
 
 In my homelab, this made maintaining the system easier as there was now only one source of truth that every system in my lab was running. An important step in this process was making sure that my systems were hardened by default. Using the CIS hardening guide for Fedora, I was able to harden my systems and make sure that they were secure. The base image also includes qemu-guest-agent and cloud-init so that you can manage the systems through proxmox. The very last service added was tailscale so that I could connect to my homelab remotely.
 
@@ -101,101 +101,110 @@ When you set up a new VM and run the playbook, caddy automatically creates a dom
   </figcaption>
 </figure>
 
-The beauty of Ansible is that you are also able to use it to configure your network. I was able to use Ansible to configure my ubiquiti unifi controller and set up VLANs and firewall rules to segment my homelab, iot devices, and guest devices from each other. This was huge as it allowed me to have my network configuration version controlled.
+The beauty of Ansible is that you are also able to use it to configure your network. In my homelab I used it to configure my ubiquiti unifi controller to set up VLANs and firewall rules to segment my homelab, iot devices, and guest devices from each other. This allowed me to have my network configuration version controlled and no longer have to manually configure it through the web interface.
 
 Once you have a repeatable operating system and a way to configure it, You need a way to provision the VMs. This is where Terraform/OpenTofu comes in.
 
 # What is Terraform / OpenTofu?
 
-Terraform/OpenTofu helps you create and manage your infrastructure using code. I chose OpenTofu in my lab as it is a community driven fork of Terraform and is open source. It maintains compatibility with Terraform modules and providers. For proxmox, I used the bpg provider because it was being actively maintained and recently updated.
+Terraform/OpenTofu helps you create and manage your infrastructure using code. I chose OpenTofu in my lab as it is a community driven fork of Terraform which is open source and it maintains compatibility with Terraform modules and providers. For proxmox, I used the bpg provider because it was being actively maintained.
 
-To avoid duplicating configurations, create a reusable VM module. Each virtual machine only specifies the values that differ, such as its name, CPU, memory, disk size, and IP address, while the module handles the shared configuration. By using this module, you can easily create new VMs that already have the configuration you want and are ready to be managed by Ansible.
+To avoid duplicating configurations across VMs, you can create a reusable VM module. Each virtual machine only specifies the values that differ, such as its name, CPU, memory, disk size, and IP address, while the module handles the shared configuration. By using this module, you can easily create new VMs that already have the configuration you want and are ready to be managed by Ansible.
+
+<details>
+<summary>VM module definition</summary>
 
 ```hcl
 resource "proxmox_virtual_environment_vm" "this" {
-name      = var.vm_name
-vm_id     = var.vm_id
-node_name = var.venv_node_name
+  name      = var.vm_name
+  vm_id     = var.vm_id
+  node_name = var.venv_node_name
 
-description = "Managed by Terraform"
-machine     = "q35"
-bios        = "ovmf"
-started     = true
-tags        = var.tags
+  description = "Managed by Terraform"
+  machine     = "q35"
+  bios        = "ovmf"
+  started     = true
+  tags        = var.tags
 
+  stop_on_destroy = true
 
-stop_on_destroy = true
+  agent {
+    enabled = true
+  }
 
-agent {
-enabled = true
-}
+  cpu {
+    cores = var.cores
+    type  = "x86-64-v3"
+  }
 
-cpu {
-cores = var.cores
-type  = "x86-64-v3"
-}
+  memory {
+    dedicated = var.memory
+  }
 
-memory {
-dedicated = var.memory
-}
+  efi_disk {
+    datastore_id = var.datastore_id
+    type         = "4m"
+  }
 
-efi_disk {
-datastore_id = var.datastore_id
-type         = "4m"
-}
+  disk {
+    datastore_id = var.datastore_id
+    file_id      = var.image_id
+    interface    = "virtio0"
+    iothread     = true
+    discard      = "on"
+    size         = var.disk_size
+  }
 
-disk {
-datastore_id = var.datastore_id
-file_id      = var.image_id
-interface    = "virtio0"
-iothread     = true
-discard      = "on"
-size         = var.disk_size
-}
+  initialization {
+    ip_config {
+      ipv4 {
+        address = "192.168.50.${var.ip_octet}/24"
+        gateway = "192.168.50.1"
+      }
+    }
+    dns {
+      servers = ["192.168.50.213"]
+    }
+    user_account {
+      username = "ansible"
+      keys     = [file("~/.ssh/id_ed25519_ansible.pub")]
+    }
+  }
 
-initialization {
-ip_config {
-ipv4 {
-address = "192.168.50.${var.ip_octet}/24"
-gateway = "192.168.50.1"
-}
-}
-dns {
-servers = ["192.168.50.213"]
-}
-user_account {
-username = "ansible"
-keys     = [file("~/.ssh/id_ed25519_ansible.pub")]
-}
-}
-network_device {
-bridge  = "vmbr0"
-vlan_id = var.vlan_id
-}
+  network_device {
+    bridge  = "vmbr0"
+    vlan_id = var.vlan_id
+  }
 }
 ```
 
-```hcl
+</details>
 
+With this setup you can easily create new VMs by adding a new module block. This approach allows you to know that your entire lab is created with a predictable baseline. No longer do you have to
+sit through a fresh install of an OS and configure it. You can now create a new VM with a few lines.
+
+<details>
+<summary>Adding a new VM (Caddy Example)</summary>
+
+```hcl
 locals {
   image_id = "local:import/geronimo-base.qcow2"
 }
 
 module "caddy" {
-  source         = "./modules/vm/"
-  vm_name        = "caddy-01"
-  vm_id          = 112
-  image_id       = local.image_id
-  cores          = 2
-  memory         = 2048
-  disk_size      = 20
-  ip_octet       = 200
-  tags           = ["bootc"]
+  source    = "./modules/vm/"
+  vm_name   = "caddy-01"
+  vm_id     = 112
+  image_id  = local.image_id
+  cores     = 2
+  memory    = 2048
+  disk_size = 20
+  ip_octet  = 200
+  tags      = ["bootc"]
 }
-
 ```
 
-With this setup you can easily create new VMs by adding a new module block. This approach allows you to know that your entire lab is created with a predictable baseline. All these tools together make up the BAT stack.
+</details>
 
 # Conclusion
 
@@ -211,9 +220,9 @@ With this setup you can easily create new VMs by adding a new module block. This
   </figcaption>
 </figure>
 
-Getting all of this working together was satisfying, and cuts down a lot of the manual work used to maintain a homelab. Using this stack lets you be less afraid to experiemnt and break things because you can revert to a previous state as it is version controlled in git.
+Getting all of this working together was satisfying, and cuts down a lot of the manual work used to maintain a homelab. Using this stack allows you to freely experiment and break things while also being reliable as you can revert to a previous working state from git.
 
-To test the setup, I wiped my entire lab including my home network. It took 5 minutes to get everything up and running again. This is a huge improvement compared to the hours it used to take when I had to manually configure everything.
+To test my setup I wiped my entire homelab and network and it took 5 minutes to get everything up and running again. This was an improvement compared to the hours it used to take when I had to manually configure everything.
 
 My CI/CD pipeline already handles building and pushing bootc image updates to the registry. The next step is to have pipelines handling deploying the playbooks and OpenTofu modules to my lab so that whatever is in git is what is running in my lab. Check out my GitHub repository to see how I have everything setup and how you can use it for your projects!
 
